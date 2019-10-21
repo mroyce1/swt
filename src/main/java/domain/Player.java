@@ -38,4 +38,13 @@ public abstract class Player {
     public void setPlayerType(PlayerType playerType) {
         this.playerType = playerType;
     }
+
+    public String getMove(){
+        return "";
+    }
+
+    @Override
+    public String toString(){
+        return this.playerType + " | " + this.name;
+    }
 }
