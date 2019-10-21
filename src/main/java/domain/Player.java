@@ -1,5 +1,7 @@
 package domain;
 
+import java.util.List;
+
 public abstract class Player {
     private String name;
     private int points;
@@ -39,7 +41,7 @@ public abstract class Player {
         this.playerType = playerType;
     }
 
-    public String getMove(){
+    public String getMove(char c, List<Category> categories){
         return null;
     }
 

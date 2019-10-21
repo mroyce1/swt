@@ -20,4 +20,14 @@ public enum Difficulty {
         return 20;
 
     }
+
+    public static Difficulty getDifficulty(String s){
+        switch(s) {
+            case "EASY":
+                return EASY;
+            case "MEDIUM":
+                return MEDIUM;
+        }
+        return HARD;
+    }
 }

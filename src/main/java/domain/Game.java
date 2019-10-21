@@ -1,6 +1,7 @@
 package domain;
 
 import java.util.List;
+import java.util.Random;
 
 public class Game {
     private static String answer1 = null;
@@ -19,15 +20,22 @@ public class Game {
         this.maxTime = difficulty.getVal();
     }
 
+    private char getRandomChar(){
+        Random r = new Random();
+        return (char)(r.nextInt(26) + 'A');
+    }
+
     public void playRound(){
+        char initialChar = this.getRandomChar();
+
         Thread t1 = new Thread(){
             public void run(){
-                answer1 = player1.getMove();
+                answer1 = player1.getMove(initialChar);
             }
         };
         Thread t2 = new Thread(){
             public void run(){
-                answer2 = player2.getMove();
+                answer2 = player2.getMove(initialChar);
             }
         };
         t1.start();
@@ -36,6 +44,7 @@ public class Game {
         while((System.currentTimeMillis() - start) / 1000 < this.maxTime){
             System.out.println("bla");
             //null = exit from game
+            System.out.println(getRandomChar());
             if (answer1 == null || answer2 == null){
                 t1.interrupt();
                 t2.interrupt();

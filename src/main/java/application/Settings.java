@@ -1,7 +1,7 @@
 package application;
 
 public class Settings {
-    protected static final String citiesDBPedia =  "PREFIX dbo: <http://dbpedia.org/ontology/>\n" +
+    public static final String citiesDBPedia =  "PREFIX dbo: <http://dbpedia.org/ontology/>\n" +
             "PREFIX dbr: <http://dbpedia.org/resource/>\n" +
             "PREFIX foaf: <http://xmlns.com/foaf/0.1/>\n"+
             "SELECT ?cityName WHERE {\n" +
@@ -11,6 +11,9 @@ public class Settings {
             "}\n" +
             "LIMIT 100\n";
 
+    public static final String countries = "bla";
+    public static final String rivers = "bla";
 
-    protected static final String dbpediaEndpoint = "http://dbpedia.org/sparql";
+
+    public static final String dbpediaEndpoint = "http://dbpedia.org/sparql";
 }
