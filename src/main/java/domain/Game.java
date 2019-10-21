@@ -3,6 +3,8 @@ package domain;
 import java.util.List;
 
 public class Game {
+    private static String answer1 = null;
+    private static String answer2 = null;
     private Player player1;
     private Player player2;
     private int maxRounds;
@@ -16,4 +18,30 @@ public class Game {
         this.categories = categories;
         this.maxTime = difficulty.getVal();
     }
+
+    public void playRound(){
+        Thread t1 = new Thread(){
+            public void run(){
+                answer1 = player1.getMove();
+            }
+        };
+        Thread t2 = new Thread(){
+            public void run(){
+                answer2 = player2.getMove();
+            }
+        };
+        t1.start();
+        t2.start();
+        long start = System.currentTimeMillis();
+        while((System.currentTimeMillis() - start) / 1000 < this.maxTime){
+            System.out.println("bla");
+            //null = exit from game
+            if (answer1 == null || answer2 == null){
+                t1.interrupt();
+                t2.interrupt();
+                return;
+            }
+        }
+    }
 }
+

@@ -1,7 +1,7 @@
 package domain;
 
 public class Human extends Player {
-    public Human(String name, int points, PlayerType playerType) {
-        super(name, points, playerType);
+    public Human(String name, int points) {
+        super(name, points, PlayerType.HUMAN);
     }
 }

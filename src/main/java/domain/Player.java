@@ -40,7 +40,7 @@ public abstract class Player {
     }
 
     public String getMove(){
-        return "";
+        return null;
     }
 
     @Override
