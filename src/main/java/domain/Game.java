@@ -10,9 +10,9 @@ public class Game {
     private Player player2;
     private int maxRounds;
     private int maxTime;
-    private List<String> categories;
+    private List<Category> categories;
 
-    public Game(Player player1, Player player2, int maxRounds, Difficulty difficulty, List<String> categories) {
+    public Game(Player player1, Player player2, int maxRounds, Difficulty difficulty, List<Category> categories) {
         this.player1 = player1;
         this.player2 = player2;
         this.maxRounds = maxRounds;
@@ -30,12 +30,12 @@ public class Game {
 
         Thread t1 = new Thread(){
             public void run(){
-                answer1 = player1.getMove(initialChar);
+                answer1 = player1.getMove(initialChar, categories);
             }
         };
         Thread t2 = new Thread(){
             public void run(){
-                answer2 = player2.getMove(initialChar);
+                answer2 = player2.getMove(initialChar, categories);
             }
         };
         t1.start();
@@ -44,7 +44,6 @@ public class Game {
         while((System.currentTimeMillis() - start) / 1000 < this.maxTime){
             System.out.println("bla");
             //null = exit from game
-            System.out.println(getRandomChar());
             if (answer1 == null || answer2 == null){
                 t1.interrupt();
                 t2.interrupt();

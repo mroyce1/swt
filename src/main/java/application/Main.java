@@ -6,6 +6,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.List;
 
 public class Main {
 
@@ -16,12 +17,15 @@ public class Main {
         String playerName = readName();
         Difficulty difficulty = readDifficulty();
         int maxRounds = readMaxRounds();
+        List<Category> categories = new ArrayList<Category>();
+        categories.add(Category.CITY);
+        categories.add(Category.COUNTRY);
+        categories.add(Category.RIVER);
 
         Player p1 = new Human(playerName, 0);
         Player p2 = new AI("bla", 0, difficulty);
-        Game g  = new Game(p1, p2, 10, Difficulty.HARD, new ArrayList<String>());
+        Game g  = new Game(p1, p2, 10, difficulty, categories);
         g.playRound();
-
     }
 
     private static String readName(){
@@ -83,6 +87,4 @@ public class Main {
         }
         return Integer.parseInt(rounds);
     }
-
-
 }
