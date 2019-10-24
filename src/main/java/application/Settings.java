@@ -58,7 +58,7 @@ public class Settings {
     		"SELECT DISTINCT ?riverName WHERE {\n"+
     		"?a rdfs:label ?riverName.\n"+
     		"?an a dbo:River.\n"+
-    		"FILTER (lang(?riverName) = 'en')\n"
+    		"FILTER (lang(?riverName) = 'en')\n"+
     		" FILTER( regex(str(?riverName) , \"^B\"))\n"+
     		" }\n" +
             " LIMIT 100\n";
