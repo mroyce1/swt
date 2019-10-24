@@ -16,7 +16,11 @@ public class SparqlController {
         ResultSetFormatter.out(System.out, results, query);
     }
 
-    public static void validateAnswer(String answer){
 
+    public static Boolean validateAnswer(String endpoint, String queryString){
+        Query query = QueryFactory.create(queryString);
+        QueryExecution qexec = QueryExecutionFactory.sparqlService(endpoint, query);
+        return qexec.execAsk();
+        }
     }
-}
+

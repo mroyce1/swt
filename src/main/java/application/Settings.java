@@ -21,6 +21,15 @@ public class Settings {
             " }\n" +
             " LIMIT 100\n";
 
+    public static final String doesCompanyExistQuery = "PREFIX dbr: <http://dbpedia.org/resource/>\n" +
+            "PREFIX dbo: <http://dbpedia.org/ontology/>\n" +
+            "PREFIX foaf: <http://xmlns.com/foaf/0.1/>\n"+
+            "PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>\n"+
+            "ASK {\n" +
+            " ?c foaf:name \"Adidas\"@en.\n" +
+            " ?c a dbo:Company.\n" +
+            " }\n";
+
     public static final String countries = "bla";
     public static final String rivers = "bla";
 
