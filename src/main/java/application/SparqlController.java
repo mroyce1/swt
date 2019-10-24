@@ -17,7 +17,7 @@ public class SparqlController {
     }
 
 
-    public static Boolean validateAnswer(String endpoint, String queryString){
+    public Boolean validateAnswer(String endpoint, String queryString){
         Query query = QueryFactory.create(queryString);
         QueryExecution qexec = QueryExecutionFactory.sparqlService(endpoint, query);
         return qexec.execAsk();

@@ -7,10 +7,10 @@ public enum Category {
     public String getQuery(){
         switch(this){
             case COUNTRY:
-                return Settings.countries;
+                return Settings.countriesDBPedia;
             case CITY:
                 return Settings.citiesDBPedia;
         }
-        return Settings.rivers;
+        return Settings.countriesDBPedia;
     }
 }
