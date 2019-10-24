@@ -11,6 +11,16 @@ public class Settings {
             "}\n" +
             "LIMIT 100\n";
 
+    public static final String countriesDBPedia = "PREFIX dbr: <http://dbpedia.org/resource/>\n" +
+            "PREFIX dbo: <http://dbpedia.org/ontology/>\n" +
+            "PREFIX foaf: <http://xmlns.com/foaf/0.1/>\n"+
+            "SELECT ?companyName WHERE {\n" +
+            " ?c foaf:name ?companyName.\n" +
+            " ?c a dbo:Company.\n" +
+            " FILTER( regex(str(?companyName) , \"^B\"))\n" +
+            " }\n" +
+            " LIMIT 100\n";
+
     public static final String countries = "bla";
     public static final String rivers = "bla";
 
