@@ -52,9 +52,25 @@ public class Settings {
     //public static final String countries = "bla";
     
     //dbpedia query of River
-
-
-
+    public static final String rivers = "PREFIX dbr: <http://dbpedia.org/resource/>\n"+
+    		"PREFIX dbo: <http://dbpedia.org/ontology/>\n"+
+    		"PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>"+
+    		"SELECT DISTINCT ?riverName WHERE {\n"+
+    		"?a rdfs:label ?riverName.\n"+
+    		"?an a dbo:River.\n"+
+    		"FILTER (lang(?riverName) = 'en')\n"+
+    		" FILTER( regex(str(?riverName) , \"^B\"))\n"+
+    		" }\n" +
+            " LIMIT 100\n";
+    
+    public static final String AskValidateRiver ="PREFIX dbr: <http://dbpedia.org/resource/>\n"+
+    		"PREFIX dbo: <http://dbpedia.org/ontology/>\n"+
+    		"PREFIX foaf: <http://xmlns.com/foaf/0.1/>\n"+
+    		"PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>\n"+
+    		"ASK\n"+
+    		"{?c foaf:name \"Boga River\"@en.\n"+
+    		"?c a dbo:River.}\n"
+    		
     		//widata query of River
     		public static final String Rivers="PREFIX bd: <http://www.bigdata.com/rdf#>\n" +
 			"PREFIX wikibase: <http://wikiba.se/ontology#>\n" +
