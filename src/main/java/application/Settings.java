@@ -65,7 +65,7 @@ public class Settings {
     
     public static final String AskValidateRiver ="PREFIX dbr: <http://dbpedia.org/resource/>\n"+
     		"PREFIX dbo: <http://dbpedia.org/ontology/>\n"+
-    		"PREFIX foaf: <http://xmlns.com/foaf/0.1/>"+
+    		"PREFIX foaf: <http://xmlns.com/foaf/0.1/>\n"+
     		"PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>\n"+
     		"ASK\n"+
     		"{?c foaf:name \"Boga River\"@en.\n"+
