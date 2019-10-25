@@ -1,3 +1,4 @@
 swtproject.iml
 .idea/
 target/
+.DS_Store

@@ -13,7 +13,7 @@ public abstract class Player {
         this.playerType = playerType;
     }
 
-    public void performMove(){
+    public void performMove() {
 
     }
 
@@ -41,12 +41,12 @@ public abstract class Player {
         this.playerType = playerType;
     }
 
-    public String getMove(char c, List<Category> categories){
+    public String getMove(char c, List<Category> categories) {
         return null;
     }
 
     @Override
-    public String toString(){
+    public String toString() {
         return this.playerType + " | " + this.name;
     }
 }

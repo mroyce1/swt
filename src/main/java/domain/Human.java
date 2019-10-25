@@ -7,7 +7,7 @@ public class Human extends Player {
         super(name, points, PlayerType.HUMAN);
     }
 
-    public String getMove(char c, List<Category> categories){
+    public String getMove(char c, List<Category> categories) {
 //        return "human blabla";
         return null;
     }
