@@ -106,5 +106,5 @@ public class Settings {
             "    rdfs:label \"%s\"@en.}";
 
     public static final String dbpediaEndpoint = "http://dbpedia.org/sparql";
-    public static final String wikiDataEndpoint = "https://query.wikidata.org/sparql";
+    public static final String wikiDataEndpoint = "https://query.wikidata.org/sparql?query=";
 }

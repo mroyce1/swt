@@ -1,6 +1,7 @@
 package application;
 
 import domain.*;
+import ui.InitUI;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -11,8 +12,7 @@ import java.util.List;
 public class Main {
 
     public static void main(String[] args){
-//        SparqlController s = new SparqlController();
-//        s.query(Settings.dbpediaEndpoint, Settings.citiesDBPedia);
+        javafx.application.Application.launch(InitUI.class);
 
         String playerName = readName();
         Difficulty difficulty = readDifficulty();
