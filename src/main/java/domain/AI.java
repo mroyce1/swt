@@ -14,7 +14,7 @@ public class AI extends Player {
         this.difficulty = difficulty;
     }
 
-    public String getMove(char c, List<Category> categories){
+    public String getMove(char c, List<Category> categories) {
         return null;
     }
 }
