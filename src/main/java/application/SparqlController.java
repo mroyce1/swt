@@ -7,10 +7,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.ProtocolException;
 import java.net.URL;
-import java.nio.charset.Charset;
 import java.util.*;
 
 
@@ -26,18 +23,14 @@ public class SparqlController {
     5. etc.
      */
 
-    public static void queryList(Category category, char initialChar) {
-        List<String> results = null;
+    public static List<String> queryList(Category category, char initialChar) {
+        List<String> results;
         if (category.getEndpoint() == Settings.dbpediaEndpoint) {
             results = queryDBPedia(category, initialChar);
         } else {
             results = queryWikidata(category, initialChar);
         }
-        for (String s : results) {
-            System.out.println(s);
-        }
-        //do sth
-
+        return results;
     }
 
     public static List<String> queryDBPedia(Category category, char initialChar) {
@@ -47,9 +40,9 @@ public class SparqlController {
         QueryExecution qExe = QueryExecutionFactory.sparqlService(endpoint, query);
         ResultSet resultSet = qExe.execSelect();
         List<String> results = new ArrayList<String>();
-        while (resultSet.hasNext()){
+        while (resultSet.hasNext()) {
             String s = resultSet.next().toString();
-            int start = s.indexOf("\"")+1;
+            int start = s.indexOf("\"") + 1;
             int end = s.indexOf("\"@en ");
             results.add(s.substring(start, end));
         }
@@ -89,8 +82,8 @@ public class SparqlController {
                     responseContent.append("\n");
                 }
                 bufR.close();
-                System.out.println(responseContent.toString());
                 System.out.println("Error: " + status);
+                System.out.println(responseContent.toString());
                 return null;
             } else {
                 bufR = new BufferedReader(new InputStreamReader(connection.getInputStream()));

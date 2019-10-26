@@ -41,8 +41,16 @@ public abstract class Player {
         this.playerType = playerType;
     }
 
-    public String getMove(char c, List<Category> categories) {
+    public List<String> getListOfMoves(List<Category> categories, char initialChar) {
         return null;
+    }
+
+    public String getMove(Category category, char initialChar){
+        return null;
+    }
+
+    public void incrementPoints(int pts){
+        this.points += pts;
     }
 
     @Override

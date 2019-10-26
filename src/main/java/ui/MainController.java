@@ -2,6 +2,7 @@ package ui;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.TableColumn;
 import javafx.scene.layout.AnchorPane;
 
 import java.net.URL;
@@ -13,7 +14,9 @@ public class MainController implements Initializable {
     @FXML
     private AnchorPane pane;
 
+
     public static MainController getInstance() {
+        TableColumn bla;
         return instance;
     }
 
