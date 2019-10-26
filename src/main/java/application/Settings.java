@@ -49,13 +49,13 @@ public class Settings {
             " ?animal rdfs:label \"%s\"@en.\n" +
             " }\n";
 
-    public static final String countriesWikiData = "SELECT ?country ?countryLabel ?article WHERE {\n" +
-            "    ?country wdt:P31 wd:Q3624078 .\n" +
-            "    ?article schema:about ?country .\n" +
-            "    ?article schema:isPartOf <https://en.wikipedia.org/>.\n" +
-            "    SERVICE wikibase:label {\n" +
-            "       bd:serviceParam wikibase:language \"en\"\n" +
-            "    }\n" +
+    public static final String countriesWikiData = "SELECT ?country ?countryLabel ?article WHERE {" +
+            "    ?country wdt:P31 wd:Q3624078 ." +
+            "    ?article schema:about ?country ." +
+            "    ?article schema:isPartOf <https://en.wikipedia.org/>." +
+            "    SERVICE wikibase:label {" +
+            "       bd:serviceParam wikibase:language \"en\"" +
+            "    }" +
             "}";
 
     //dbpedia query of River
@@ -106,5 +106,5 @@ public class Settings {
             "    rdfs:label \"%s\"@en.}";
 
     public static final String dbpediaEndpoint = "http://dbpedia.org/sparql";
-    public static final String wikiDataEndpoint = "https://query.wikidata.org/sparql";
+    public static final String wikiDataEndpoint = "https://query.wikidata.org/sparql?query=";
 }

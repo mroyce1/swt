@@ -1,6 +1,7 @@
 package application;
 
 import domain.*;
+import ui.InitUI;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -11,21 +12,20 @@ import java.util.List;
 public class Main {
 
     public static void main(String[] args){
-//        SparqlController s = new SparqlController();
-//        s.query(Settings.dbpediaEndpoint, Settings.citiesDBPedia);
+//        javafx.application.Application.launch(InitUI.class);
 
-        String playerName = readName();
-        Difficulty difficulty = readDifficulty();
-        int maxRounds = readMaxRounds();
+//        String playerName = readName();
+//        Difficulty difficulty = readDifficulty();
+//        int maxRounds = readMaxRounds();
         List<Category> categories = new ArrayList<Category>();
         categories.add(Category.CITY);
         categories.add(Category.COUNTRY);
-        categories.add(Category.RIVER);
+//        categories.add(Category.RIVER);
 
-        Player p1 = new Human(playerName, 0);
-        Player p2 = new AI("bla", 0, difficulty);
-        Game g  = new Game(p1, p2, 10, difficulty, categories);
-        g.playRound();
+        Player p1 = new Human("human", 0);
+        Player p2 = new AI("bla AI", 0, Difficulty.HARD);
+        Game g  = new Game(p1, p2, 10, Difficulty.HARD, categories);
+        g.start();
     }
 
     private static String readName(){
@@ -78,7 +78,7 @@ public class Main {
         String rounds = "";
         try{
             while(!rounds.matches("\\d+")) {
-                System.out.println("Please enter a number of rounds [1-20]: ");
+                System.out.println("Please enter a number of rounds [1-26]: ");
                 rounds = bufR.readLine();
             }
         }
