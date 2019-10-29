@@ -7,10 +7,10 @@ import java.util.List;
 import java.util.Random;
 
 public class Game {
-    private static String answer1 = null;
-    private static String answer2 = null;
-    private Player player1;
-    private Player player2;
+    private static String aiAnswer = null;
+    private static String humanAnswer = null;
+    private Player aiPlayer;
+    private Player humanPlayer;
     private int maxRounds;
     private int maxTime;
     private List<Category> categories;
@@ -18,8 +18,13 @@ public class Game {
     private List<Character> listOfChars;
 
     public Game(Player player1, Player player2, int maxRounds, Difficulty difficulty, List<Category> categories) {
-        this.player1 = player1;
-        this.player2 = player2;
+        if (player1.getPlayerType() == PlayerType.HUMAN) {
+            this.humanPlayer = player1;
+            this.aiPlayer = player2;
+        } else {
+            this.humanPlayer = player2;
+            this.aiPlayer = player1;
+        }
         this.maxRounds = maxRounds;
         this.categories = categories;
         this.maxTime = difficulty.getVal();
@@ -79,43 +84,43 @@ public class Game {
         for (Category category : this.categories) {
             Thread t1 = new Thread() {
                 public void run() {
-                    answer1 = player1.getMove(category, initialChar);
+                    humanAnswer = humanPlayer.getMove(category, initialChar);
                 }
             };
             Thread t2 = new Thread() {
                 public void run() {
-                    answer2 = player2.getMove(category, initialChar);
+                    aiAnswer = aiPlayer.getMove(category, initialChar);
                 }
             };
             t1.start();
             t2.start();
             long start = System.currentTimeMillis();
             while ((System.currentTimeMillis() - start) / 1000 < this.maxTime) {
-                //null = exit from game
-                if (answer1 != null){
+                if (humanAnswer != null) {
                     t1.interrupt();
                     t2.interrupt();
-                    long duration = (System.currentTimeMillis() - start)/1000;
-                    System.out.println("AI answered "+ answer1+ " in " +duration + "s.");
-                    this.player1.incrementPoints(10);
-                    System.out.println("AI receives 10 points.");
-                    System.out.println("Current score:");
-                    System.out.println("AI: " + this.player1.getPoints() + " | You:" + this.player2.getPoints());
-                    answer1 = null;
-                    answer2 = null;
-                    this.rounds++;
-                }
-                if (answer2 != null){
-                    t1.interrupt();
-                    t2.interrupt();
-                    long duration = (System.currentTimeMillis() - start)/1000;
-                    System.out.println("You answered "+ answer2+ " in " +duration + "s.");
-                    this.player2.incrementPoints(10);
+                    long duration = (System.currentTimeMillis() - start) / 1000;
+                    System.out.println("You answered " + humanAnswer + " in " + duration + "s.");
+                    this.humanPlayer.incrementPoints(10);
                     System.out.println("You receive 10 points.");
                     System.out.println("Current score:");
-                    System.out.println("AI: " + this.player1.getPoints() + " | You:" + this.player2.getPoints());
-                    answer1 = null;
-                    answer2 = null;
+                    System.out.println("AI: " + this.aiPlayer.getPoints() + " | You: " + this.humanPlayer.getPoints());
+                    humanAnswer = null;
+                    aiAnswer = null;
+                    this.rounds++;
+                }
+                //null = exit from game
+                if (aiAnswer != null) {
+                    t1.interrupt();
+                    t2.interrupt();
+                    long duration = (System.currentTimeMillis() - start) / 1000;
+                    System.out.println("AI answered " + aiAnswer + " in " + duration + "s.");
+                    this.aiPlayer.incrementPoints(10);
+                    System.out.println("AI receives 10 points.");
+                    System.out.println("Current score:");
+                    System.out.println("AI: " + this.aiPlayer.getPoints() + " | You: " + this.humanPlayer.getPoints());
+                    humanAnswer = null;
+                    aiAnswer = null;
                     this.rounds++;
                 }
 
