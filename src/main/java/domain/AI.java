@@ -17,7 +17,7 @@ public class AI extends Player {
     public List<String> getListOfMoves(List<Category> categories, char initialChar) {
         List<String> answers = new ArrayList<String>();
         Random random = new Random();
-        for(Category c : categories){
+        for (Category c : categories) {
             List<String> results = SparqlController.queryList(c, initialChar);
             int randomInt = random.nextInt(results.size());
             answers.add(results.get(randomInt));
@@ -25,18 +25,14 @@ public class AI extends Player {
         return answers;
     }
 
-    public List<String> getMove(List<Category> categories, char initialChar) {
+    public String getMove(Category category, char initialChar) {
         long start = System.currentTimeMillis();
-        while((System.currentTimeMillis() - start) / 1000 < this.difficulty.getVal() /2){
+        while ((System.currentTimeMillis() - start) / 1000 < this.difficulty.getVal() / 2) {
 
         }
-        List<String> answers = new ArrayList<String>();
+        List<String> results = SparqlController.queryList(category, initialChar);
         Random random = new Random();
-        for(Category c : categories){
-            List<String> results = SparqlController.queryList(c, initialChar);
-            int randomInt = random.nextInt(results.size());
-            answers.add(results.get(randomInt));
-        }
-        return answers;
+        int randomInt = random.nextInt(results.size());
+        return results.get(randomInt);
     }
 }
