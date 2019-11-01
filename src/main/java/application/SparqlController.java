@@ -25,7 +25,7 @@ public class SparqlController {
 
     public static List<String> queryList(Category category, char initialChar) {
         List<String> results;
-        if (category.getEndpoint() == Settings.dbpediaEndpoint) {
+        if (category.getEndpoint().equals(Settings.dbpediaEndpoint)) {
             results = queryDBPedia(category, initialChar);
         } else {
             results = queryWikidata(category, initialChar);
