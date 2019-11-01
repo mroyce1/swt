@@ -45,7 +45,7 @@ public class UnitTests {
 
     @Test
     public void testValidateAnswerCityNegative() {
-        assertFalse(SparqlController.validateAnswer(Category.CITY, "Brnfwn"));
+        assertFalse(SparqlController.validateAnswer(Category.CITY, "Hechen"));
     }
 
     @Test
@@ -55,7 +55,7 @@ public class UnitTests {
 
     @Test
     public void testValidateAnswerSoccerPlayerNegative() {
-        assertFalse(SparqlController.validateAnswer(Category.SOCCERPLAYER, "Einstein"));
+        assertFalse(SparqlController.validateAnswer(Category.SOCCERPLAYER, "Hechen"));
     }
 
     @Test
