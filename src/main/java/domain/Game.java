@@ -1,5 +1,7 @@
 package domain;
 
+import application.SparqlController;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -72,7 +74,8 @@ public class Game {
 
     private void evaluateAnswers() {
         //TODO: Do validate queries here. If answers are valid, proceed
-
+        Answer test = humanAnswers.get(0);
+        System.out.println(SparqlController.validateAnswer(test.getCategory(), test.getAnswerText()));
         int p1Points = 0;
         int p2Points = 0;
         for (int i = 0; i < humanAnswers.size(); i++) {

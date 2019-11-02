@@ -30,10 +30,10 @@ public class AI extends Player {
         for (Category c : categories) {
             List<String> results = SparqlController.queryList(c, initialChar);
             if (results.isEmpty()){
-                answers.add(new Answer(null, this.getRandomMoveTime()));
+                answers.add(new Answer(null, c, this.getRandomMoveTime()));
             }else{
                 int randomInt = random.nextInt(results.size());
-                answers.add(new Answer(results.get(randomInt), this.getRandomMoveTime()));
+                answers.add(new Answer(results.get(randomInt), c, this.getRandomMoveTime()));
             }
         }
         return answers;
@@ -51,6 +51,6 @@ public class AI extends Player {
         List<String> results = SparqlController.queryList(category, initialChar);
         Random random = new Random();
         int randomInt = random.nextInt(results.size());
-        return new Answer(results.get(randomInt), this.getRandomMoveTime());
+        return new Answer(results.get(randomInt), category, this.getRandomMoveTime());
     }
 }

@@ -54,6 +54,6 @@ public class Human extends Player {
             System.out.println(e.getStackTrace());
         }
         long duration = System.currentTimeMillis() - start;
-        return new Answer(a, duration);
+        return new Answer(a, category, duration);
     }
 }
