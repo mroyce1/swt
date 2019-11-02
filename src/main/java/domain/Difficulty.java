@@ -5,12 +5,16 @@ public enum Difficulty {
 
     private int val;
 
-    Difficulty(int val){
+    Difficulty(int val) {
         this.val = val;
     }
 
-    public int getVal(){
-        switch(this){
+
+        /*
+    Returns time associated with the AI's difficulty
+     */
+    public int getMoveTimeUpperBound() {
+        switch (this) {
             case EASY:
                 return 40;
             case MEDIUM:
@@ -18,11 +22,10 @@ public enum Difficulty {
         }
         //case HARD
         return 20;
-
     }
 
-    public static Difficulty getDifficulty(String s){
-        switch(s) {
+    public static Difficulty getDifficulty(String s) {
+        switch (s) {
             case "EASY":
                 return EASY;
             case "MEDIUM":

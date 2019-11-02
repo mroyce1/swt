@@ -16,12 +16,15 @@ public class AI extends Player {
 
 
     private int getRandomMoveTime() {
-        int upperBound = this.difficulty.getVal();
+        int upperBound = this.difficulty.getMoveTimeUpperBound();
         return (new Random().nextInt(10) + upperBound) * 1000;
     }
 
+        /*
+    Returns a list of answers for each category and starting with the respective character.
+     */
     @Override
-    public List<Answer> getListOfMoves(List<Category> categories, char initialChar) {
+    public List<Answer> getListOfAnswers(List<Category> categories, char initialChar) {
         List<Answer> answers = new ArrayList<Answer>();
         Random random = new Random();
         for (Category c : categories) {
@@ -36,10 +39,13 @@ public class AI extends Player {
         return answers;
     }
 
+        /*
+    Returns a single answer for each category and starting with the respective character.
+    */
     @Override
-    public Answer getMove(Category category, char initialChar) {
+    public Answer getAnswer(Category category, char initialChar) {
         long start = System.currentTimeMillis();
-        while ((System.currentTimeMillis() - start) / 1000 < this.difficulty.getVal() / 2) {
+        while ((System.currentTimeMillis() - start) / 1000 < this.difficulty.getMoveTimeUpperBound() / 2) {
 
         }
         List<String> results = SparqlController.queryList(category, initialChar);

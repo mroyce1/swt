@@ -12,8 +12,12 @@ public class Human extends Player {
     }
 
 
+
+    /*
+    Returns a list of answers for each category and starting with the respective character.
+     */
     @Override
-    public List<Answer> getListOfMoves(List<Category> categories, char initialChar) {
+    public List<Answer> getListOfAnswers(List<Category> categories, char initialChar) {
         System.out.println("You can forgo an answer by simply pressing return.");
         List<Answer> answers = new ArrayList<Answer>();
         for (Category category : categories){
@@ -22,15 +26,20 @@ public class Human extends Player {
         return answers;
     }
 
-
-    public Answer getMove(Category category, char initialChar) {
+        /*
+    Returns a single answer for each category and starting with the respective character.
+     */
+    @Override
+    public Answer getAnswer(Category category, char initialChar) {
         Answer answer = this.readAnswer(category, initialChar);
         System.out.println("answer is " + answer);
         return answer;
     }
 
 
-
+    /*
+    Read answer from command line.
+     */
     private Answer readAnswer(Category category, char initialChar){
         BufferedReader bufR = new BufferedReader(new InputStreamReader(System.in));
         String a = null;

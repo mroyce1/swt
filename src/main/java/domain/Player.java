@@ -2,6 +2,10 @@ package domain;
 
 import java.util.List;
 
+/*
+Abstract class representing a player (AI or Human) within the game.
+ */
+
 public abstract class Player {
     private String name;
     private int points;
@@ -13,9 +17,6 @@ public abstract class Player {
         this.playerType = playerType;
     }
 
-    public void performMove() {
-
-    }
 
     public String getName() {
         return name;
@@ -41,11 +42,16 @@ public abstract class Player {
         this.playerType = playerType;
     }
 
-    public List<Answer> getListOfMoves(List<Category> categories, char initialChar) {
+    /*
+    Returns a list of answers for each category and starting with the respective character.
+     */
+    public List<Answer> getListOfAnswers(List<Category> categories, char initialChar) {
         return null;
     }
-
-    public Answer getMove(Category category, char initialChar){
+        /*
+    Returns a single answer for each category and starting with the respective character.
+     */
+    public Answer getAnswer(Category category, char initialChar){
         return null;
     }
 

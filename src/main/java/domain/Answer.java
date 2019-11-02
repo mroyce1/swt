@@ -1,5 +1,9 @@
 package domain;
 
+/*
+Class that represents an answer within the game.
+ */
+
 public class Answer {
     private String answerText;
     private long moveTime;

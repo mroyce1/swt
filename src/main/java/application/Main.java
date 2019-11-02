@@ -25,7 +25,8 @@ public class Main {
         Player p1 = new Human("human", 0);
         Player p2 = new AI("bla AI", 0, Difficulty.HARD);
         Game g  = new Game(p1, p2, 10, Difficulty.HARD, categories);
-        g.start();
+        Player winner = g.start();
+        System.out.println("Winner is: " + winner);
     }
 
     private static String readName(){
