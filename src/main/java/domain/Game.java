@@ -72,24 +72,25 @@ public class Game {
 
     private void evaluateAnswers() {
         //TODO: Do validate queries here. If answers are valid, proceed
+
         int p1Points = 0;
         int p2Points = 0;
         for (int i = 0; i < humanAnswers.size(); i++) {
-            if (humanAnswers.get(i).getMoveTime() < aiAnswers.get(i).getMoveTime()) {
+            if (humanAnswers.get(i).getMoveTime() < aiAnswers.get(i).getMoveTime() && humanAnswers.get(i).getAnswerText() != null) {
                 p1Points += 10;
-            } else if (humanAnswers.get(i).getMoveTime() > aiAnswers.get(i).getMoveTime()) {
+            } else if (humanAnswers.get(i).getMoveTime() > aiAnswers.get(i).getMoveTime() && aiAnswers.get(i).getAnswerText() != null) {
                 p2Points += 10;
             } else {
-                p1Points += 5;
-                p2Points += 5;
+                p1Points += humanAnswers.get(i).getAnswerText() == null ? 0 : 5;
+                p2Points += aiAnswers.get(i).getAnswerText() == null ? 0 : 5;
             }
         }
         System.out.println("Your answers: " + humanAnswers);
         System.out.println("Ai answers: " + aiAnswers);
-        System.out.println("You receive " + p1Points + " points and now have " + this.humanPlayer.getPoints() + " points.");
-        System.out.println("AI receives " + p2Points + " points and now has " + this.aiPlayer.getPoints() + " points.");
         this.humanPlayer.incrementPoints(p1Points);
         this.aiPlayer.incrementPoints(p2Points);
+        System.out.println("You receive " + p1Points + " points and now have " + this.humanPlayer.getPoints() + " points.");
+        System.out.println("AI receives " + p2Points + " points and now has " + this.aiPlayer.getPoints() + " points.");
         humanAnswers = null;
         aiAnswers = null;
         this.rounds++;
