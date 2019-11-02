@@ -11,33 +11,40 @@ public class Human extends Player {
         super(name, points, PlayerType.HUMAN);
     }
 
-    public List<String> getListOfMoves(char c, List<Category> categories) {
-//        return "human blabla";
-        return new ArrayList<String>();
+
+    @Override
+    public List<Answer> getListOfMoves(List<Category> categories, char initialChar) {
+        System.out.println("You can forgo an answer by simply pressing return.");
+        List<Answer> answers = new ArrayList<Answer>();
+        for (Category category : categories){
+            answers.add(readAnswer(category, initialChar));
+        }
+        return answers;
     }
 
 
-    public String getMove(Category category, char initialChar) {
-        String answer = this.readAnswer(category, initialChar);
+    public Answer getMove(Category category, char initialChar) {
+        Answer answer = this.readAnswer(category, initialChar);
         System.out.println("answer is " + answer);
         return answer;
     }
 
 
 
-    private String readAnswer(Category category, char initialChar){
+    private Answer readAnswer(Category category, char initialChar){
         BufferedReader bufR = new BufferedReader(new InputStreamReader(System.in));
-        String answer = null;
-        String matcher = "^"+initialChar;
+        String a = null;
+        long start = System.currentTimeMillis();
         try{
-            while(answer == null) {
+            while(a == null) {
                 System.out.println(String.format("Please enter a %s beginning with %c: ", category, initialChar));
-                answer = bufR.readLine();
+                a = bufR.readLine();
             }
         }
-        catch (IOException e){
+        catch (IOException e) {
             System.out.println(e.getStackTrace());
         }
-        return answer;
+        long duration = System.currentTimeMillis() - start;
+        return new Answer(a, duration);
     }
 }

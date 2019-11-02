@@ -92,7 +92,9 @@ public class SparqlController {
                         int start = line.indexOf("wiki/") + 5;
                         int end = line.indexOf("</uri>");
                         String country = line.substring(start, end).replace("_", " ");
-                        countries.add(country);
+                        if (country.charAt(0) == initialChar){
+                            countries.add(country);
+                        }
                     }
                 }
                 bufR.close();

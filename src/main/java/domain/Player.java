@@ -41,11 +41,11 @@ public abstract class Player {
         this.playerType = playerType;
     }
 
-    public List<String> getListOfMoves(List<Category> categories, char initialChar) {
+    public List<Answer> getListOfMoves(List<Category> categories, char initialChar) {
         return null;
     }
 
-    public String getMove(Category category, char initialChar){
+    public Answer getMove(Category category, char initialChar){
         return null;
     }
 
