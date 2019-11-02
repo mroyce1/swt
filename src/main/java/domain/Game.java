@@ -86,8 +86,8 @@ public class Game {
         }
         System.out.println("Your answers: " + humanAnswers);
         System.out.println("Ai answers: " + aiAnswers);
-        System.out.println("You receive " + p1Points + " points.");
-        System.out.println("AI receives " + p2Points + " points");
+        System.out.println("You receive " + p1Points + " points and now have " + this.humanPlayer.getPoints() + " points.");
+        System.out.println("AI receives " + p2Points + " points and now has " + this.aiPlayer.getPoints() + " points.");
         this.humanPlayer.incrementPoints(p1Points);
         this.aiPlayer.incrementPoints(p2Points);
         humanAnswers = null;
