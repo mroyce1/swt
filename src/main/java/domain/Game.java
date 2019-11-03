@@ -74,7 +74,11 @@ public class Game {
 
     private void evaluateAnswers() {
         //TODO: Do validate queries here. If answers are valid, proceed
+
+
         Answer test = humanAnswers.get(0);
+        System.out.println(SparqlController.validateAnswer(test.getCategory(), test.getAnswerText()));
+        test = humanAnswers.get(1);
         System.out.println(SparqlController.validateAnswer(test.getCategory(), test.getAnswerText()));
         int p1Points = 0;
         int p2Points = 0;

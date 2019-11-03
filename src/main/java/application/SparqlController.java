@@ -50,6 +50,12 @@ public class SparqlController {
     }
 
     public static Boolean validateAnswer(Category category, String answer) {
+
+        //workaround until ASK COUNTRY query works
+        if (category == Category.COUNTRY){
+            List<String> countries = queryWikidata(category, answer.charAt(0));
+            return countries.contains(answer);
+        }
         String queryString = String.format(category.getValidateQuery(), answer);
         String endpoint = category.getEndpoint();
         Query query = QueryFactory.create(queryString);
