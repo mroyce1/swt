@@ -74,10 +74,6 @@ public class Game {
      */
 
     private void evaluateAnswers() {
-        Answer test = humanAnswers.get(0);
-        System.out.println(SparqlController.validateAnswer(test.getCategory(), test.getAnswerText()));
-        test = humanAnswers.get(1);
-        System.out.println(SparqlController.validateAnswer(test.getCategory(), test.getAnswerText()));
         int p1Points = 0;
         int p2Points = 0;
         List<Boolean> answers = new ArrayList<>();
@@ -88,20 +84,29 @@ public class Game {
             Boolean answerCorrect = false;
             try {
                 answerCorrect = SparqlController.validateAnswer(cat, answerString);
+                answer.setCorrect(answerCorrect);
+//                System.out.println(humanAnswers.get(i).getAnswerText() + ":  " + answerCorrect);
             } catch (QueryException ignored) {
             }
-            answers.add(answerCorrect);
-            if (answerCorrect && humanAnswers.get(i).getMoveTime() < aiAnswers.get(i).getMoveTime()) {
+        }
+        Answer answer;
+        for (int i = 0; i < humanAnswers.size(); i++) {
+            answer = humanAnswers.get(i);
+            if (answer.isCorrect() && answer.getMoveTime() < aiAnswers.get(i).getMoveTime()) {
                 p1Points += 10; //human has correct answer and is faster than AI -> Human receives points
-            } else if (answerCorrect && humanAnswers.get(i).getMoveTime() > aiAnswers.get(i).getMoveTime() && aiAnswers.get(i).getAnswerText() != null) {
+            } else if (answer.isCorrect() && answer.getMoveTime() > aiAnswers.get(i).getMoveTime() && aiAnswers.get(i).getAnswerText() != null) {
                 p2Points += 10; //human has correct answer but is slower than AI -> AI receives points
-            } else if (!answerCorrect && aiAnswers.get(i).getAnswerText() != null){
+            } else if (!answer.isCorrect() && aiAnswers.get(i).getAnswerText() != null) {
                 p2Points += 10; //human has no correct answer -> AI receives points
             }
+            System.out.println("You answered: "  + humanAnswers.get(i));
+            System.out.println("The AI answered: " + aiAnswers.get(i));
         }
-        System.out.println("Ai answers: " + aiAnswers);
-        System.out.println(p1Points);
-        System.out.println(p2Points);
+
+
+//        System.out.println("Ai answers: " + aiAnswers);
+//        System.out.println(p1Points);
+//        System.out.println(p2Points);
         this.humanPlayer.incrementPoints(p1Points);
         this.aiPlayer.incrementPoints(p2Points);
         System.out.println("You receive " + p1Points + " points and now have " + this.humanPlayer.getPoints() + " points.");

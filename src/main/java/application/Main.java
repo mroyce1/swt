@@ -1,6 +1,7 @@
 package application;
 
 import domain.*;
+import org.apache.commons.lang3.builder.Diff;
 import ui.InitUI;
 
 import java.io.BufferedReader;
@@ -16,12 +17,14 @@ public class Main {
 //        javafx.application.Application.launch(InitUI.class);
 
 //        String playerName = readName();
-        Difficulty difficulty = readDifficulty();
-        int maxRounds = readMaxRounds();
+//        Difficulty difficulty = readDifficulty();
+//        int maxRounds = readMaxRounds();
+        int maxRounds = 10;
+        Difficulty difficulty = Difficulty.EASY;
         List<Category> categories = new ArrayList<Category>();
         categories.add(Category.CITY);
         categories.add(Category.COUNTRY);
-//        categories.add(Category.RIVER);
+        categories.add(Category.RIVER);
 
         Player p1 = new Human("human", 0);
         Player p2 = new AI("bla AI", 0, difficulty);

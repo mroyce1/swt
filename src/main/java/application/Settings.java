@@ -99,7 +99,7 @@ public class Settings {
             "PREFIX foaf: <http://xmlns.com/foaf/0.1/>\n" +
             "PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>\n" +
             "ASK {\n" +
-            "    ?city a dbo:City;\n" +
+            "    ?city a dbo:PopulatedPlace;\n" +
             "    rdfs:label \"%s\"@en.}";
 
     public static final String doesCompanyExistQuery = "PREFIX dbr: <http://dbpedia.org/resource/>\n" +
@@ -124,7 +124,7 @@ public class Settings {
             "PREFIX foaf: <http://xmlns.com/foaf/0.1/>\n" +
             "PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>\n" +
             "ASK\n" +
-            "{?c foaf:name \"%s\"@en.\n" +
+            "{?c rdfs:label\"%s\"@en.\n" +
             "?c a dbo:River.}\n";
 
     public static final String doesSoccerPlayerExistQuery = "PREFIX dbr: <http://dbpedia.org/resource/>\n" +

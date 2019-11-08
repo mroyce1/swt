@@ -8,12 +8,21 @@ public class Answer {
     private String answerText;
     private long moveTime;
     private Category category;
-
+    private boolean correct;
 
     public Answer(String a, Category c, long mt) {
         this.answerText = a;
         this.moveTime = mt;
         this.category = c;
+        this.correct = false;
+    }
+
+    public boolean isCorrect() {
+        return correct;
+    }
+
+    public void setCorrect(boolean correct) {
+        this.correct = correct;
     }
 
     public Category getCategory() {
@@ -42,6 +51,8 @@ public class Answer {
 
     @Override
     public String toString() {
-        return this.answerText + " in " + this.moveTime / 1000.0 + "s";
+        String answerText = this.answerText + " in " + this.moveTime / 1000.0 + "s:   ";
+        answerText += this.correct ? "correct" : "incorrect";
+        return answerText;
     }
 }
