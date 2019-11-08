@@ -41,8 +41,6 @@ public class AI extends Player {
             }else{
                 int randomInt = random.nextInt(results.size());
                 int randomIntForAiFailure = getRandomNumberInRange(1, 100);
-                System.out.println(randomIntForAiFailure);
-                System.out.println(thresholdFailure);
                 if (randomIntForAiFailure >= thresholdFailure) {
                     answers.add(new Answer(null, c, this.getRandomMoveTime()));
                 }else {
