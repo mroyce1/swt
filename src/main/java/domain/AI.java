@@ -17,9 +17,18 @@ public class AI extends Player {
 
     private int getRandomMoveTime() {
         int upperBound = this.difficulty.getMoveTimeUpperBound();
-        return (new Random().nextInt(10) + upperBound) * 1000;
+        return (new Random(System.currentTimeMillis()).nextInt(10) + upperBound) * 500;
     }
 
+
+    private String generateRandomAnswer(){
+        int rdm = this.getRandomNumberInRange(3, 8);
+        String str = "";
+        for (int i=0; i < rdm; i++){
+            str += (char) ('a' + this.getRandomNumberInRange(0, 26));
+        }
+        return str;
+    }
         /*
     Returns a list of answers for each category and starting with the respective character.
      */
@@ -33,7 +42,7 @@ public class AI extends Player {
             thresholdFailure = 90;
         }
         List<Answer> answers = new ArrayList<Answer>();
-        Random random = new Random();
+        Random random = new Random(System.currentTimeMillis());
         for (Category c : categories) {
             List<String> results = SparqlController.queryList(c, initialChar);
             if (results.isEmpty()){
@@ -42,7 +51,7 @@ public class AI extends Player {
                 int randomInt = random.nextInt(results.size());
                 int randomIntForAiFailure = getRandomNumberInRange(1, 100);
                 if (randomIntForAiFailure >= thresholdFailure) {
-                    answers.add(new Answer(null, c, this.getRandomMoveTime()));
+                    answers.add(new Answer(this.generateRandomAnswer(), c, this.getRandomMoveTime()));
                 }else {
                     answers.add(new Answer(results.get(randomInt), c, this.getRandomMoveTime()));
                 }
@@ -66,12 +75,11 @@ public class AI extends Player {
         return new Answer(results.get(randomInt), category, this.getRandomMoveTime());
     }
 
-    private static int getRandomNumberInRange(int min, int max) {
+    private int getRandomNumberInRange(int min, int max) {
 
         if (min >= max) {
             throw new IllegalArgumentException("max must be greater than min");
         }
-
         Random r = new Random();
         return r.nextInt((max - min) + 1) + min;
     }

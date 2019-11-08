@@ -54,7 +54,9 @@ public class SparqlController {
     }
 
     public static Boolean validateAnswer(Category category, String answer) {
-
+        if (answer == null || answer.equals("")){
+            return false;
+        }
         //workaround until ASK COUNTRY query works
         if (category == Category.COUNTRY){
             List<String> countries = queryWikidata(category, answer.charAt(0));

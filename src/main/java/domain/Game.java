@@ -3,6 +3,9 @@ package domain;
 import application.SparqlController;
 import org.apache.jena.query.QueryException;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -62,7 +65,7 @@ public class Game {
     Generates a random starting character.
      */
     private char getRandomChar() {
-        Random r = new Random();
+        Random r = new Random(System.currentTimeMillis());
         int randomInt = r.nextInt(this.listOfChars.size());
         return this.listOfChars.remove(randomInt);
     }
@@ -78,13 +81,16 @@ public class Game {
         int p2Points = 0;
         List<Boolean> answers = new ArrayList<>();
         for (int i = 0; i < humanAnswers.size(); i++) {
-            Answer answer = humanAnswers.get(i);
-            String answerString = answer.getAnswerText();
-            Category cat = answer.getCategory();
+            Category cat = humanAnswers.get(i).getCategory();
             Boolean answerCorrect = false;
             try {
-                answerCorrect = SparqlController.validateAnswer(cat, answerString);
-                answer.setCorrect(answerCorrect);
+                answerCorrect = SparqlController.validateAnswer(cat, humanAnswers.get(i).getAnswerText());
+                humanAnswers.get(i).setCorrect(answerCorrect);
+//                System.out.println(humanAnswers.get(i).getAnswerText() + ":  " + answerCorrect);
+            } catch (QueryException ignored) {
+            }            try {
+                answerCorrect = SparqlController.validateAnswer(cat, aiAnswers.get(i).getAnswerText());
+                aiAnswers.get(i).setCorrect(answerCorrect);
 //                System.out.println(humanAnswers.get(i).getAnswerText() + ":  " + answerCorrect);
             } catch (QueryException ignored) {
             }
@@ -114,6 +120,15 @@ public class Game {
         humanAnswers = null;
         aiAnswers = null;
         this.rounds++;
+        System.out.println("Press return to start the next round.");
+        BufferedReader bufR = new BufferedReader(new InputStreamReader(System.in));
+        try{
+            while(bufR.readLine() == null) {
+            }
+        }
+        catch (IOException e){
+            System.out.println(e.getStackTrace());
+        }
     }
 
     /*

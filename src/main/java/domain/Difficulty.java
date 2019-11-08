@@ -16,12 +16,12 @@ public enum Difficulty {
     public int getMoveTimeUpperBound() {
         switch (this) {
             case EASY:
-                return 40;
+                return 25;
             case MEDIUM:
-                return 30;
+                return 12;
         }
         //case HARD
-        return 20;
+        return 5;
     }
 
     public static Difficulty getDifficulty(String s) {
