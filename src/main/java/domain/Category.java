@@ -52,7 +52,7 @@ public enum Category {
     }
 
     public String getEndpoint() {
-        if (this == COUNTRY || this == RIVER) {
+        if (this == COUNTRY) {
             return Settings.wikiDataEndpoint;
         }
         return Settings.dbpediaEndpoint;
