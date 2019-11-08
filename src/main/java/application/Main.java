@@ -7,6 +7,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class Main {
@@ -59,20 +60,34 @@ public class Main {
         return Difficulty.getDifficulty(difficulty.toUpperCase());
     }
 
-    private static String readCategories(){
+    private static List<Category> readCategories(){
         BufferedReader bufR = new BufferedReader(new InputStreamReader(System.in));
         String categories = null;
+        String catString = "";
+        int i=0;
+        List<Category> catList = Arrays.asList(Category.values());
+        for(Category c : catList){
+            catString += c+"(" + (i) + "),";
+            i++;
+        }
         try{
             while(categories == null) {
-                System.out.println("Please enter a list of categories: ");
+                System.out.println("Please select the categories' numbers separated by comma:");
+                System.out.println(catString);
                 categories = bufR.readLine();
             }
         }
         catch (IOException e){
             System.out.println(e.getStackTrace());
         }
-        return categories;
+        List<Category> returnList = new ArrayList<Category>();
+        for(String s : categories.split(",")){
+            returnList.add(catList.get(Integer.parseInt(s)));
+        }
+        System.out.println(returnList);
+        return returnList;
     }
+
 
     private static int readMaxRounds(){
         BufferedReader bufR = new BufferedReader(new InputStreamReader(System.in));
