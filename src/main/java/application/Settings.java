@@ -171,23 +171,23 @@ public class Settings {
             "    }" +
             "}";
 
-    public static final String riversWikiData = "PREFIX bd: <http://www.bigdata.com/rdf#>\n" +
-            "PREFIX wikibase: <http://wikiba.se/ontology#>\n" +
-            "PREFIX wdt: <http://www.wikidata.org/prop/direct/>\n" +
-            "PREFIX wd: <http://www.wikidata.org/entity/>\n" +
-            "SELECT DISTINCT ?riverLabel\n" +
-            "WHERE \n" +
-            "{\n" +
-            "  {?river wdt:P30 wd:Q46.}\n" +
-            "  UNION {?river wdt:P30 wd:Q48.}\n" +
-            "  UNION {?river wdt:P30 wd:Q15.}\n" +
-            "  UNION {?river wdt:P30 wd:Q18.}\n" +
-            "  UNION {?river wdt:P30 wd:Q49.}\n" +
-            "  UNION {?river wdt:P30 wd:Q538}\n" +
-            "  UNION {?river wdt:P30 wd:Q51.}\n" +
-            "  ?river wdt:P31 wd:Q4022;\n" +
-            "  SERVICE wikibase:label { bd:serviceParam wikibase:language \"en\". }\n" +
-            "}\n";
+    public static final String riversWikiData = "PREFIX bd: <http://www.bigdata.com/rdf#>" +
+            "PREFIX wikibase: <http://wikiba.se/ontology#>" +
+            "PREFIX wdt: <http://www.wikidata.org/prop/direct/>" +
+            "PREFIX wd: <http://www.wikidata.org/entity/>" +
+            "SELECT DISTINCT ?riverLabel" +
+            "WHERE " +
+            "{n" +
+            "  {?river wdt:P30 wd:Q46.}" +
+            "  UNION {?river wdt:P30 wd:Q48.}" +
+            "  UNION {?river wdt:P30 wd:Q15.}" +
+            "  UNION {?river wdt:P30 wd:Q18.}" +
+            "  UNION {?river wdt:P30 wd:Q49.}" +
+            "  UNION {?river wdt:P30 wd:Q538}" +
+            "  UNION {?river wdt:P30 wd:Q51.}" +
+            "  ?river wdt:P31 wd:Q4022;" +
+            "  SERVICE wikibase:label { bd:serviceParam wikibase:language \"en\". }" +
+            "}";
 
 
 
