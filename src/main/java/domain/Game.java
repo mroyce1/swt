@@ -1,6 +1,7 @@
 package domain;
 
 import application.SparqlController;
+import org.apache.jena.query.QueryException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -82,18 +83,29 @@ public class Game {
         System.out.println(SparqlController.validateAnswer(test.getCategory(), test.getAnswerText()));
         int p1Points = 0;
         int p2Points = 0;
+        List<Boolean> answers = new ArrayList<>();
         for (int i = 0; i < humanAnswers.size(); i++) {
-            if (humanAnswers.get(i).getMoveTime() < aiAnswers.get(i).getMoveTime() && humanAnswers.get(i).getAnswerText() != null) {
-                p1Points += 10;
-            } else if (humanAnswers.get(i).getMoveTime() > aiAnswers.get(i).getMoveTime() && aiAnswers.get(i).getAnswerText() != null) {
-                p2Points += 10;
-            } else {
-                p1Points += humanAnswers.get(i).getAnswerText() == null ? 0 : 5;
-                p2Points += aiAnswers.get(i).getAnswerText() == null ? 0 : 5;
+            Answer answer = humanAnswers.get(i);
+            String answerString = answer.getAnswerText();
+            Category cat = answer.getCategory();
+            Boolean answerCorrect = false;
+            try {
+                answerCorrect = SparqlController.validateAnswer(cat, answerString);
+            } catch (QueryException ignored) {
+            }
+            answers.add(answerCorrect);
+            if (answerCorrect && humanAnswers.get(i).getMoveTime() < aiAnswers.get(i).getMoveTime()) {
+                p1Points += 10; //human has correct answer and is faster than AI -> Human receives points
+            }
+            else if (answerCorrect && humanAnswers.get(i).getMoveTime() > aiAnswers.get(i).getMoveTime()) {
+                p2Points += 10; //human has correct answer but is slower than AI -> AI receives points
+            } else if (!answerCorrect){
+                p2Points += 10; //human has no correct answer -> AI receives points
             }
         }
-        System.out.println("Your answers: " + humanAnswers);
         System.out.println("Ai answers: " + aiAnswers);
+        System.out.println(p1Points);
+        System.out.println(p2Points);
         this.humanPlayer.incrementPoints(p1Points);
         this.aiPlayer.incrementPoints(p2Points);
         System.out.println("You receive " + p1Points + " points and now have " + this.humanPlayer.getPoints() + " points.");
