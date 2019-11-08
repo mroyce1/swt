@@ -25,6 +25,13 @@ public class AI extends Player {
      */
     @Override
     public List<Answer> getListOfAnswers(List<Category> categories, char initialChar) {
+        //thresholdFailure should depend on difficulty
+        int thresholdFailure = 50;
+        if (this.difficulty == Difficulty.MEDIUM) {
+            thresholdFailure = 70;
+        } else if (this.difficulty == Difficulty.HARD) {
+            thresholdFailure = 90;
+        }
         List<Answer> answers = new ArrayList<Answer>();
         Random random = new Random();
         for (Category c : categories) {
@@ -33,7 +40,14 @@ public class AI extends Player {
                 answers.add(new Answer(null, c, this.getRandomMoveTime()));
             }else{
                 int randomInt = random.nextInt(results.size());
-                answers.add(new Answer(results.get(randomInt), c, this.getRandomMoveTime()));
+                int randomIntForAiFailure = getRandomNumberInRange(1, 100);
+                System.out.println(randomIntForAiFailure);
+                System.out.println(thresholdFailure);
+                if (randomIntForAiFailure >= thresholdFailure) {
+                    answers.add(new Answer(null, c, this.getRandomMoveTime()));
+                }else {
+                    answers.add(new Answer(results.get(randomInt), c, this.getRandomMoveTime()));
+                }
             }
         }
         return answers;
@@ -52,5 +66,15 @@ public class AI extends Player {
         Random random = new Random();
         int randomInt = random.nextInt(results.size());
         return new Answer(results.get(randomInt), category, this.getRandomMoveTime());
+    }
+
+    private static int getRandomNumberInRange(int min, int max) {
+
+        if (min >= max) {
+            throw new IllegalArgumentException("max must be greater than min");
+        }
+
+        Random r = new Random();
+        return r.nextInt((max - min) + 1) + min;
     }
 }

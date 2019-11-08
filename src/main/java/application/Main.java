@@ -15,16 +15,16 @@ public class Main {
 //        javafx.application.Application.launch(InitUI.class);
 
 //        String playerName = readName();
-//        Difficulty difficulty = readDifficulty();
-//        int maxRounds = readMaxRounds();
+        Difficulty difficulty = readDifficulty();
+        int maxRounds = readMaxRounds();
         List<Category> categories = new ArrayList<Category>();
         categories.add(Category.CITY);
         categories.add(Category.COUNTRY);
 //        categories.add(Category.RIVER);
 
         Player p1 = new Human("human", 0);
-        Player p2 = new AI("bla AI", 0, Difficulty.HARD);
-        Game g  = new Game(p1, p2, 10, Difficulty.HARD, categories);
+        Player p2 = new AI("bla AI", 0, difficulty);
+        Game g  = new Game(p1, p2, 10, difficulty, categories);
         Player winner = g.start();
         System.out.println("Winner is: " + winner);
     }

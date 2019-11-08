@@ -96,10 +96,9 @@ public class Game {
             answers.add(answerCorrect);
             if (answerCorrect && humanAnswers.get(i).getMoveTime() < aiAnswers.get(i).getMoveTime()) {
                 p1Points += 10; //human has correct answer and is faster than AI -> Human receives points
-            }
-            else if (answerCorrect && humanAnswers.get(i).getMoveTime() > aiAnswers.get(i).getMoveTime()) {
+            } else if (answerCorrect && humanAnswers.get(i).getMoveTime() > aiAnswers.get(i).getMoveTime() && aiAnswers.get(i).getAnswerText() != null) {
                 p2Points += 10; //human has correct answer but is slower than AI -> AI receives points
-            } else if (!answerCorrect){
+            } else if (!answerCorrect && aiAnswers.get(i).getAnswerText() != null){
                 p2Points += 10; //human has no correct answer -> AI receives points
             }
         }
