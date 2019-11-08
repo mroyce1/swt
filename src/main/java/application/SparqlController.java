@@ -44,7 +44,11 @@ public class SparqlController {
             String s = resultSet.next().toString();
             int start = s.indexOf("\"") + 1;
             int end = s.indexOf("\"@en ");
-            results.add(s.substring(start, end));
+            s = s.substring(start, end);
+            if(category == Category.RIVER){
+                s = s.replace(" River", "");
+            }
+            results.add(s);
         }
         return results;
     }
