@@ -41,10 +41,12 @@ public class SparqlController {
         ResultSet resultSet = qExe.execSelect();
         List<String> results = new ArrayList<String>();
         while (resultSet.hasNext()) {
-            String s = resultSet.next().toString();
-            int start = s.indexOf("\"") + 1;
-            int end = s.indexOf("\"@en ");
-            s = s.substring(start, end);
+            QuerySolution sol = resultSet.next();
+            String s = sol.get(category.getQueryVariable()).toString();
+//            String s = resultSet.next().toString();
+//            int start = s.indexOf("\"") + 1;
+//            int end = s.indexOf("\"@en ");
+//            s = s.substring(start, end);
 //            if(category == Category.RIVER){
 //                s = s.replaceAll(" River", "");
 //            }
