@@ -46,14 +46,14 @@ public class AI extends Player {
         for (Category c : categories) {
             List<String> results = SparqlController.queryList(c, initialChar);
             if (results.isEmpty()){
-                answers.add(new Answer(null, c, this.getRandomMoveTime()));
+                answers.add(new Answer(null, c, initialChar, this.getRandomMoveTime()));
             }else{
                 int randomInt = random.nextInt(results.size());
                 int randomIntForAiFailure = getRandomNumberInRange(1, 100);
                 if (randomIntForAiFailure >= thresholdFailure) {
-                    answers.add(new Answer(this.generateRandomAnswer(), c, this.getRandomMoveTime()));
+                    answers.add(new Answer(this.generateRandomAnswer(), c, initialChar, this.getRandomMoveTime()));
                 }else {
-                    answers.add(new Answer(results.get(randomInt), c, this.getRandomMoveTime()));
+                    answers.add(new Answer(results.get(randomInt), c, initialChar, this.getRandomMoveTime()));
                 }
             }
         }
@@ -72,7 +72,7 @@ public class AI extends Player {
         List<String> results = SparqlController.queryList(category, initialChar);
         Random random = new Random();
         int randomInt = random.nextInt(results.size());
-        return new Answer(results.get(randomInt), category, this.getRandomMoveTime());
+        return new Answer(results.get(randomInt), category, initialChar, this.getRandomMoveTime());
     }
 
     private int getRandomNumberInRange(int min, int max) {

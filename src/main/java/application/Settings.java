@@ -11,7 +11,8 @@ public class Settings {
             "   ?s foaf:name ?cityName.\n" +
             "   ?s a dbo:City.\n" +
             "  filter( regex(str(?cityName), \"^%s\" ))\n" +
-            "}\n";
+            "}\n" +
+            "LIMIT 100";
 
     public static final String companiesDBPedia = "PREFIX dbr: <http://dbpedia.org/resource/>\n" +
             "PREFIX dbo: <http://dbpedia.org/ontology/>\n" +
@@ -20,7 +21,8 @@ public class Settings {
             " ?c foaf:name ?companyName.\n" +
             " ?c a dbo:Company.\n" +
             " FILTER( regex(str(?companyName) , \"^%s\"))\n" +
-            " }\n";
+            " }\n" +
+            "LIMIT 100";
 
     public static final String animalsDBPedia = "PREFIX dbr: <http://dbpedia.org/resource/>\n" +
             "PREFIX dbo: <http://dbpedia.org/ontology/>\n" +
@@ -30,7 +32,8 @@ public class Settings {
             " ?an a dbo:Animal.\n" +
             " FILTER( regex(str(?animalName) , \"^%s\"))\n" +
             " FILTER (lang(?animalName) = 'en')\n" +
-            " }\n";
+            " }\n" +
+            "LIMIT 100";
 
     public static final String riversDBPedia = "PREFIX dbr: <http://dbpedia.org/resource/>\n" +
             "PREFIX dbo: <http://dbpedia.org/ontology/>\n" +
@@ -40,7 +43,8 @@ public class Settings {
             "?a a dbo:River.\n" +
             "FILTER (lang(?riverName) = 'en')\n" +
             " FILTER( regex(str(?riverName) , \"^%s\"))\n" +
-            " }\n";
+            " }\n" +
+            "LIMIT 100";
 
     public static final String soccerplayersDBPedia = "PREFIX dbr: <http://dbpedia.org/resource/>\n" +
             "PREFIX dbo: <http://dbpedia.org/ontology/>\n" +
@@ -51,7 +55,8 @@ public class Settings {
             "?a a dbo:SoccerPlayer.\n" +
             "FILTER (lang(?soccerPlayerName) = 'en')\n" +
             " FILTER( regex(str(?soccerPlayerName) , \"^%s\"))\n" +
-            " }\n";
+            " }\n" +
+            "LIMIT 100";
 
     public static final String scientistDBPedia = "PREFIX dbr: <http://dbpedia.org/resource/>\n" +
             "PREFIX dbo: <http://dbpedia.org/ontology/>\n" +
@@ -62,7 +67,8 @@ public class Settings {
             "?a a dbo:Scientist.\n" +
             "FILTER (lang(?scientistName) = 'en')\n" +
             " FILTER( regex(str(?scientistName) , \"^%s\"))\n" +
-            " }\n";
+            " }\n" +
+            "LIMIT 100";
 
     public static final String drugDBPedia = "PREFIX dbr: <http://dbpedia.org/resource/>\n" +
             "PREFIX dbo: <http://dbpedia.org/ontology/>\n" +
@@ -72,7 +78,8 @@ public class Settings {
             "?a a dbo:Drug.\n" +
             "FILTER (lang(?drugName) = 'en')\n" +
             " FILTER( regex(str(?drugName) , \"^%s\"))\n" +
-            " }\n";
+            " }\n" +
+            "LIMIT 100";
 
     public static final String softwareDBPedia = "PREFIX dbr: <http://dbpedia.org/resource/>\n" +
             "PREFIX dbo: <http://dbpedia.org/ontology/>\n" +
@@ -82,7 +89,8 @@ public class Settings {
             "?a a dbo:Software.\n" +
             "FILTER (lang(?softwareName) = 'en')\n" +
             " FILTER( regex(str(?softwareName) , \"^%s\"))\n" +
-            " }\n";
+            " }\n" +
+            "LIMIT 100";
 
     //DBPedia Validation Queries
 

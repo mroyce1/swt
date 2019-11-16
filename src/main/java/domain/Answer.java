@@ -9,12 +9,15 @@ public class Answer {
     private long moveTime;
     private Category category;
     private boolean correct;
+    private char initialChar;
 
-    public Answer(String a, Category c, long mt) {
-        this.answerText = a;
+    public Answer(String a, Category c, char initialChar, long mt) {
+        //lower casing entire string, capitalizing first letter
+        this.answerText = String.valueOf(a.charAt(0)).toUpperCase() + a.toLowerCase().substring(1, a.length());
         this.moveTime = mt;
         this.category = c;
         this.correct = false;
+        this.initialChar = initialChar;
     }
 
     public boolean isCorrect() {
@@ -31,6 +34,14 @@ public class Answer {
 
     public void setCategory(Category category) {
         this.category = category;
+    }
+
+    public char getInitialChar() {
+        return initialChar;
+    }
+
+    public void setInitialChar(char initialChar) {
+        this.initialChar = initialChar;
     }
 
     public String getAnswerText() {

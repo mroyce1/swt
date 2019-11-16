@@ -1,5 +1,6 @@
 package application;
 
+import domain.Answer;
 import domain.Category;
 import org.apache.jena.query.*;
 
@@ -42,11 +43,11 @@ public class SparqlController {
         List<String> results = new ArrayList<String>();
         while (resultSet.hasNext()) {
             QuerySolution sol = resultSet.next();
-            String s = sol.get(category.getQueryVariable()).toString();
-//            String s = resultSet.next().toString();
-//            int start = s.indexOf("\"") + 1;
-//            int end = s.indexOf("\"@en ");
-//            s = s.substring(start, end);
+//            String s = sol.get(category.getQueryVariable()).toString();
+            String s = resultSet.next().toString();
+            int start = s.indexOf("\"") + 1;
+            int end = s.indexOf("\"@en ");
+            s = s.substring(start, end);
 //            if(category == Category.RIVER){
 //                s = s.replaceAll(" River", "");
 //            }
@@ -55,20 +56,51 @@ public class SparqlController {
         return results;
     }
 
-    public static Boolean validateAnswer(Category category, String answer) {
-        if (answer == null || answer.equals("")){
+    public static boolean validateAnswer(Answer answer) {
+        Category category = answer.getCategory();
+        String answerText = answer.getAnswerText();
+        if (answerText == null || answerText.equals("") || answerText.charAt(0) != answer.getInitialChar()) {
             return false;
         }
         //workaround until ASK COUNTRY query works
-        if (category == Category.COUNTRY){
-            List<String> countries = queryWikidata(category, answer.charAt(0));
-            return countries.contains(answer);
+        if (category == Category.COUNTRY) {
+            List<String> countries = queryWikidata(category, answerText.charAt(0));
+            return countries.contains(answerText);
         }
-        String queryString = String.format(category.getValidateQuery(), answer);
+        String queryString = String.format(category.getValidateQuery(), answerText);
         String endpoint = category.getEndpoint();
         Query query = QueryFactory.create(queryString);
         QueryExecution qexec = QueryExecutionFactory.sparqlService(endpoint, query);
-        return qexec.execAsk();
+        if (!qexec.execAsk()) {
+            return validateMultiple(answer);
+        }
+        return true;
+    }
+
+    public static boolean validateMultiple(Answer answer) {
+        Category category = answer.getCategory();
+        String answerText = answer.getAnswerText();
+        String queryString = "";
+        String endpoint = category.getEndpoint();
+        Query query = null;
+        QueryExecution qexec = null;
+        for (String s : answerText.split(" ")) {
+            for (String suffix : category.getSuffixes()) {
+                queryString = String.format(category.getValidateQuery(), s);
+                query = QueryFactory.create(queryString);
+                qexec = QueryExecutionFactory.sparqlService(endpoint, query);
+                if (qexec.execAsk()) {
+                    return true;
+                }
+                queryString = String.format(category.getValidateQuery(), s + suffix);
+                query = QueryFactory.create(queryString);
+                qexec = QueryExecutionFactory.sparqlService(endpoint, query);
+                if (qexec.execAsk()) {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
 
@@ -107,7 +139,7 @@ public class SparqlController {
                         int start = line.indexOf("wiki/") + 5;
                         int end = line.indexOf("</uri>");
                         String country = line.substring(start, end).replace("_", " ");
-                        if (country.charAt(0) == initialChar){
+                        if (country.charAt(0) == initialChar) {
                             countries.add(country);
                         }
                     }

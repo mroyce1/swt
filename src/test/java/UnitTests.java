@@ -1,5 +1,6 @@
 import static org.junit.Assert.*;
 
+import domain.Answer;
 import domain.Category;
 import org.junit.Test;
 import application.SparqlController;
@@ -43,52 +44,52 @@ public class UnitTests {
 
     @Test
     public void testValidateAnswerCity() {
-        assertTrue(SparqlController.validateAnswer(Category.CITY, "Berlin"));
+        assertTrue(SparqlController.validateAnswer(new Answer("Berlin", Category.CITY, 'C', 100)));
     }
 
     @Test
     public void testValidateAnswerCityNegative() {
-        assertFalse(SparqlController.validateAnswer(Category.CITY, "Hechen"));
+        assertFalse(SparqlController.validateAnswer(new Answer("Hechen", Category.CITY, 'H', 100)));
     }
 
     @Test
     public void testValidateAnswerSoccerPlayer() {
-        assertTrue(SparqlController.validateAnswer(Category.SOCCERPLAYER, "Kahn"));
+        assertTrue(SparqlController.validateAnswer(new Answer("Kahn", Category.SOCCERPLAYER, 'K', 103)));
     }
 
     @Test
     public void testValidateAnswerSoccerPlayerNegative() {
-        assertFalse(SparqlController.validateAnswer(Category.SOCCERPLAYER, "Hechen"));
+        assertFalse(SparqlController.validateAnswer(new Answer("Hechen", Category.SOCCERPLAYER, 'H', 97326)));
     }
 
     @Test
     public void testValidateAnswerScientist() {
-        assertTrue(SparqlController.validateAnswer(Category.SCIENTIST, "Einstein"));
+        assertTrue(SparqlController.validateAnswer(new Answer("Einstein", Category.SCIENTIST, 'E', 83276)));
     }
 
     @Test
     public void testValidateAnswerScientistNegative() {
-        assertFalse(SparqlController.validateAnswer(Category.SCIENTIST, "Hechen"));
+        assertFalse(SparqlController.validateAnswer(new Answer("Hechen", Category.SCIENTIST, 'H', 56)));
     }
 
     @Test
     public void testValidateAnswerDrug() {
-        assertTrue(SparqlController.validateAnswer(Category.DRUG, "Aspirin"));
+        assertTrue(SparqlController.validateAnswer(new Answer("Aspirin", Category.DRUG, 'A', 456)));
     }
 
     @Test
     public void testValidateAnswerDrugNegative() {
-        assertFalse(SparqlController.validateAnswer(Category.DRUG, "Hechen"));
+        assertFalse(SparqlController.validateAnswer(new Answer("Hechen", Category.DRUG, 'H', 834331)));
     }
 
     @Test
     public void testValidateAnswerSoftware() {
-        assertTrue(SparqlController.validateAnswer(Category.SOFTWARE, "Apache Kafka"));
+        assertTrue(SparqlController.validateAnswer(new Answer("Apache Kafka", Category.SOCCERPLAYER, 'A', 93334)));
     }
 
     @Test
     public void testValidateAnswerSoftwareNegative() {
-        assertFalse(SparqlController.validateAnswer(Category.SOFTWARE, "Apache Hechen"));
+        assertFalse(SparqlController.validateAnswer(new Answer("Apache Hechen", Category.SOFTWARE, 'A', 482)));
     }
 
     @Test

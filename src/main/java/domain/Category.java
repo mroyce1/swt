@@ -2,6 +2,8 @@ package domain;
 
 import application.Settings;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 public enum Category {
@@ -51,26 +53,71 @@ public enum Category {
         return Settings.doesRiverExistQuery;
     }
 
-    public String getQueryVariable(){
+    public List<String> getSuffixes() {
         switch (this) {
             case COUNTRY:
-                return "country";
+                return new ArrayList<String>() {{
+                    add(" Country");
+                    add(" country");
+                    add(" (Country)");
+                    add(" (country)");
+                }};
             case CITY:
-                return "cityName";
+                return new ArrayList<String>() {{
+                    add(" City");
+                    add(" city");
+                    add(" (City)");
+                    add(" (city)");
+                }};
             case ANIMAL:
-                return "animalName";
+                return new ArrayList<String>() {{
+                    add(" Animal");
+                    add(" animal");
+                    add(" (Animal)");
+                    add(" (animal)");
+                }};
             case COMPANY:
-                return "companyName";
+                return new ArrayList<String>() {{
+                    add(" Company");
+                    add(" company");
+                    add(" (Company)");
+                    add(" (company)");
+                }};
             case SOCCERPLAYER:
-                return "soccerPlayerName";
+                return new ArrayList<String>() {{
+                    add(" SoccerPlayer");
+                    add(" soccerplayer");
+                    add(" (SoccerPlayer)");
+                    add(" (soccerplayer)");
+                }};
             case SCIENTIST:
-                return "scientistName";
+                return new ArrayList<String>() {{
+                    add(" Scientist");
+                    add(" scientist");
+                    add(" (Scientist)");
+                    add(" (scientist)");
+                }};
             case DRUG:
-                return "drugName";
+                return new ArrayList<String>() {{
+                    add(" Drug");
+                    add(" drug");
+                    add(" (Drug)");
+                    add(" (drug)");
+                }};
             case SOFTWARE:
-                return "softwareName";
+                return new ArrayList<String>() {{
+                    add(" Software");
+                    add(" software");
+                    add(" (Software)");
+                    add(" (software)");
+                }};
         }
-        return "riverName";
+        return new ArrayList<String>() {{
+            add(" River");
+            add(" river");
+            add(" (River)");
+            add(" (river)");
+        }};
     }
 
     public String getEndpoint() {

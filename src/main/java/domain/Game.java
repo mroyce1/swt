@@ -81,15 +81,14 @@ public class Game {
         int p2Points = 0;
         List<Boolean> answers = new ArrayList<>();
         for (int i = 0; i < humanAnswers.size(); i++) {
-            Category cat = humanAnswers.get(i).getCategory();
             Boolean answerCorrect = false;
             try {
-                answerCorrect = SparqlController.validateAnswer(cat, humanAnswers.get(i).getAnswerText());
+                answerCorrect = SparqlController.validateAnswer(humanAnswers.get(i));
                 humanAnswers.get(i).setCorrect(answerCorrect);
 //                System.out.println(humanAnswers.get(i).getAnswerText() + ":  " + answerCorrect);
             } catch (QueryException ignored) {
             }            try {
-                answerCorrect = SparqlController.validateAnswer(cat, aiAnswers.get(i).getAnswerText());
+                answerCorrect = SparqlController.validateAnswer(aiAnswers.get(i));
                 aiAnswers.get(i).setCorrect(answerCorrect);
 //                System.out.println(humanAnswers.get(i).getAnswerText() + ":  " + answerCorrect);
             } catch (QueryException ignored) {
@@ -100,7 +99,7 @@ public class Game {
             answer = humanAnswers.get(i);
             if (answer.isCorrect() && answer.getMoveTime() < aiAnswers.get(i).getMoveTime()) {
                 p1Points += 10; //human has correct answer and is faster than AI -> Human receives points
-            } else if (answer.isCorrect() && answer.getMoveTime() > aiAnswers.get(i).getMoveTime() && aiAnswers.get(i).getAnswerText() != null) {
+            } else if (answer.isCorrect() && answer.getMoveTime() > aiAnswers.get(i).getMoveTime() && aiAnswers.get(i) != null) {
                 p2Points += 10; //human has correct answer but is slower than AI -> AI receives points
             } else if (!answer.isCorrect() && aiAnswers.get(i).getAnswerText() != null) {
                 p2Points += 10; //human has no correct answer -> AI receives points
