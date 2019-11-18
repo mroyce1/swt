@@ -25,6 +25,10 @@ public class Main {
         categories.add(Category.CITY);
         categories.add(Category.COUNTRY);
         categories.add(Category.RIVER);
+//        categories.add(Category.SOFTWARE);
+//        categories.add(Category.ANIMAL);
+        categories.add(Category.DRUG);
+
 
         Player p1 = new Human("human", 0);
         Player p2 = new AI("bla AI", 0, difficulty);

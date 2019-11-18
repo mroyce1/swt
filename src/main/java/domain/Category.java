@@ -120,6 +120,28 @@ public enum Category {
         }};
     }
 
+    public String getQueryVariable(){
+        switch (this) {
+            case COUNTRY:
+                return "country";
+            case CITY:
+                return "cityName";
+            case ANIMAL:
+                return "animalName";
+            case COMPANY:
+                return "companyName";
+            case SOCCERPLAYER:
+                return "soccerPlayerName";
+            case SCIENTIST:
+                return "scientistName";
+            case DRUG:
+                return "drugName";
+            case SOFTWARE:
+                return "softwareName";
+        }
+        return "riverName";
+    }
+
     public String getEndpoint() {
         if (this == COUNTRY) {
             return Settings.wikiDataEndpoint;

@@ -14,31 +14,31 @@ public class UnitTests {
 
     @Test
     public void testQueryCity() {
-        List<String> result = SparqlController.queryDBPedia(Category.CITY, 'B');
+        List<String> result = SparqlController.queryDBPedia(Category.CITY, "B");
         result.forEach(System.out::println);
     }
 
     @Test
     public void testQuerySoccerPlayer() {
-        List<String> result = SparqlController.queryDBPedia(Category.SOCCERPLAYER, 'B');
+        List<String> result = SparqlController.queryDBPedia(Category.SOCCERPLAYER, "B");
         result.forEach(System.out::println);
     }
 
     @Test
     public void testQueryScientist() {
-        List<String> result = SparqlController.queryDBPedia(Category.SCIENTIST, 'B');
+        List<String> result = SparqlController.queryDBPedia(Category.SCIENTIST, "B");
         result.forEach(System.out::println);
     }
 
     @Test
     public void testQueryDrug() {
-        List<String> result = SparqlController.queryDBPedia(Category.DRUG, 'A');
+        List<String> result = SparqlController.queryDBPedia(Category.DRUG, "A");
         result.forEach(System.out::println);
     }
 
     @Test
     public void testQuerySoftware() {
-        List<String> result = SparqlController.queryDBPedia(Category.SOFTWARE, 'A');
+        List<String> result = SparqlController.queryDBPedia(Category.SOFTWARE, "A");
         result.forEach(System.out::println);
     }
 
@@ -117,32 +117,32 @@ public class UnitTests {
         for (char currentChar : alphabet) {
             System.out.println("current Char: " + currentChar);
             start = Instant.now();
-            citeSizes.add(SparqlController.queryDBPedia(Category.CITY, currentChar).size());
+            citeSizes.add(SparqlController.queryDBPedia(Category.CITY, String.valueOf(currentChar)).size());
             end = Instant.now();
             citeDurations.add(Duration.between(start, end));
 
             start = Instant.now();
-            soccersSizes.add(SparqlController.queryDBPedia(Category.SOCCERPLAYER, currentChar).size());
+            soccersSizes.add(SparqlController.queryDBPedia(Category.SOCCERPLAYER, String.valueOf(currentChar)).size());
             end = Instant.now();
             soccersDurations.add(Duration.between(start, end));
 
             start = Instant.now();
-            scientistsSizes.add(SparqlController.queryDBPedia(Category.SCIENTIST, currentChar).size());
+            scientistsSizes.add(SparqlController.queryDBPedia(Category.SCIENTIST, String.valueOf(currentChar)).size());
             end = Instant.now();
             scientistsDurations.add(Duration.between(start, end));
 
             start = Instant.now();
-            drugsSizes.add(SparqlController.queryDBPedia(Category.DRUG, currentChar).size());
+            drugsSizes.add(SparqlController.queryDBPedia(Category.DRUG, String.valueOf(currentChar)).size());
             end = Instant.now();
             drugsDurations.add(Duration.between(start, end));
 
             start = Instant.now();
-            softwareSizes.add(SparqlController.queryDBPedia(Category.SOFTWARE, currentChar).size());
+            softwareSizes.add(SparqlController.queryDBPedia(Category.SOFTWARE, String.valueOf(currentChar)).size());
             end = Instant.now();
             softwareDurationss.add(Duration.between(start, end));
 
             start = Instant.now();
-            riverSizes.add(SparqlController.queryDBPedia(Category.RIVER, currentChar).size());
+            riverSizes.add(SparqlController.queryDBPedia(Category.RIVER, String.valueOf(currentChar)).size());
             end = Instant.now();
             riverDurations.add(Duration.between(start, end));
 

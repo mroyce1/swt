@@ -27,15 +27,15 @@ public class SparqlController {
     public static List<String> queryList(Category category, char initialChar) {
         List<String> results;
         if (category.getEndpoint().equals(Settings.dbpediaEndpoint)) {
-            results = queryDBPedia(category, initialChar);
+            results = queryDBPedia(category, String.valueOf(initialChar));
         } else {
             results = queryWikidata(category, initialChar);
         }
         return results;
     }
 
-    public static List<String> queryDBPedia(Category category, char initialChar) {
-        String queryString = String.format(category.getListQuery(), initialChar);
+    public static List<String> queryDBPedia(Category category, String initialChar) {
+        String queryString = String.format(category.getListQuery(), "^" + initialChar);
         String endpoint = category.getEndpoint();
         Query query = QueryFactory.create(queryString);
         QueryExecution qExe = QueryExecutionFactory.sparqlService(endpoint, query);
@@ -43,11 +43,16 @@ public class SparqlController {
         List<String> results = new ArrayList<String>();
         while (resultSet.hasNext()) {
             QuerySolution sol = resultSet.next();
-//            String s = sol.get(category.getQueryVariable()).toString();
-            String s = resultSet.next().toString();
-            int start = s.indexOf("\"") + 1;
-            int end = s.indexOf("\"@en ");
-            s = s.substring(start, end);
+            String s = sol.get(category.getQueryVariable()).toString();
+//            String s = resultSet.next().toString();
+//            int start = s.indexOf("\"") + 1;
+//            int end = s.indexOf("\"@en ");
+//            s = s.substring(start, end);
+            if (s.contains("@en")) {
+                int end = s.indexOf("@") + 1;
+//            int end = s.indexOf("\"@en ");
+                s = s.substring(0, end-1);
+            }
 //            if(category == Category.RIVER){
 //                s = s.replaceAll(" River", "");
 //            }
@@ -72,9 +77,33 @@ public class SparqlController {
         Query query = QueryFactory.create(queryString);
         QueryExecution qexec = QueryExecutionFactory.sparqlService(endpoint, query);
         if (!qexec.execAsk()) {
-            return validateMultiple(answer);
+//            return validateMultiple(answer);
+            return validateWithSelect(answer);
         }
         return true;
+    }
+
+    public static boolean validateWithSelect(Answer answer) {
+        Category category = answer.getCategory();
+        String answerText = answer.getAnswerText();
+        String queryString = "";
+        List<String> queryTokens = new ArrayList<String>();
+        String[] tokensArray = answerText.split(" ");
+        for (int i = 0; i < tokensArray.length; i++) {
+            String firstChar = String.valueOf(tokensArray[i].charAt(0));
+            queryTokens.add(firstChar.toUpperCase() + tokensArray[i].substring(1, Math.min(3, tokensArray[i].length())));
+            queryTokens.add(firstChar.toLowerCase() + tokensArray[i].substring(1, Math.min(3, tokensArray[i].length())));
+        }
+        List<String> retrieved = new ArrayList<String>();
+        for (String token : queryTokens) {
+            retrieved.addAll(queryDBPedia(category, token));
+        }
+        for (String s : retrieved) {
+            if (s.toLowerCase().contains(answerText.toLowerCase())) {
+                return true;
+            }
+        }
+        return false;
     }
 
     public static boolean validateMultiple(Answer answer) {
