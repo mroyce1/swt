@@ -8,6 +8,7 @@ import application.SparqlController;
 import java.time.Duration;
 import java.time.Instant;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class UnitTests {
@@ -196,4 +197,150 @@ public class UnitTests {
         System.out.println(riverDurations.stream().mapToDouble(Duration::toMillis).max());
         System.out.println(riverDurations.stream().mapToDouble(Duration::toMillis).min());
     }
-}
+
+    @Test
+    public void AccuracyTest() {
+
+        ArrayList<String> cityAnswers = new ArrayList<>();
+        ArrayList<String> soccersAnswers = new ArrayList<>();
+        ArrayList<String> scientistsAnswers = new ArrayList<>();
+        ArrayList<String> drugsAnswers = new ArrayList<>();
+        ArrayList<String> softwareAnswers = new ArrayList<>();
+        ArrayList<String> riverAnswers = new ArrayList<>();
+        ArrayList<String> countryAnswers = new ArrayList<>();
+
+
+        cityAnswers.add("London");
+        cityAnswers.add("Berlin");
+        cityAnswers.add("Frankfurt");
+        cityAnswers.add("Zurich");
+        cityAnswers.add("Madrid");
+        cityAnswers.add("Paris");
+        cityAnswers.add("New York");
+        cityAnswers.add("Munich");
+        cityAnswers.add("Rome");
+        cityAnswers.add("Mannheim");
+
+        soccersAnswers.add("Kahn");
+        soccersAnswers.add("Ribery");
+        soccersAnswers.add("Ronaldo");
+        soccersAnswers.add("Hummels");
+        soccersAnswers.add("Van der Saar");
+        soccersAnswers.add("Neuer");
+        soccersAnswers.add("Ibrahimovic");
+        soccersAnswers.add("Messi");
+        soccersAnswers.add("Müller");
+        soccersAnswers.add("Maradona");
+
+        scientistsAnswers.add("Berners-Lee");
+        scientistsAnswers.add("Bohr");
+        scientistsAnswers.add("Freud");
+        scientistsAnswers.add("Einstein");
+        scientistsAnswers.add("Darwin");
+        scientistsAnswers.add("Hawkins");
+        scientistsAnswers.add("Spearman");
+        scientistsAnswers.add("Thompson");
+        scientistsAnswers.add("Gauß");
+        scientistsAnswers.add("Euler");
+
+        drugsAnswers.add("Aspirin");
+        drugsAnswers.add("Ibuprofen");
+        drugsAnswers.add("Adderal");
+        drugsAnswers.add("Xanax");
+        drugsAnswers.add("Silomat");
+        drugsAnswers.add("Subutex");
+        drugsAnswers.add("Buscopan");
+        drugsAnswers.add("Prozac");
+        drugsAnswers.add("Voltaren");
+        drugsAnswers.add("Diazepam");
+
+
+        softwareAnswers.add("Excel");
+        softwareAnswers.add("Microsoft Excel");
+        softwareAnswers.add("Kafka");
+        softwareAnswers.add("Apache Kafka");
+        softwareAnswers.add("Rapidminer" );
+        softwareAnswers.add("IBM SPSS" );
+        softwareAnswers.add("MySQL" );
+        softwareAnswers.add("Teradata");
+        softwareAnswers.add("Jena" );
+        softwareAnswers.add("HRworks" );
+
+        riverAnswers.add("Rhine");
+        riverAnswers.add("Main");
+        riverAnswers.add("Niger");
+        riverAnswers.add("Amazonas");
+        riverAnswers.add("Isar");
+        riverAnswers.add("Lahn");
+        riverAnswers.add("Neckar");
+        riverAnswers.add("Seine");
+        riverAnswers.add("Thames");
+        riverAnswers.add("Nidda");
+
+
+        countryAnswers.add("Brazil");
+        countryAnswers.add("Germany");
+        countryAnswers.add("USA");
+        countryAnswers.add("France");
+        countryAnswers.add("China");
+        countryAnswers.add("Poland");
+        countryAnswers.add("Congo");
+        countryAnswers.add("Hungary");
+        countryAnswers.add("Italy");
+        countryAnswers.add("Spain");
+
+
+        HashMap<String, Double> resultsCity = calculateAccuracy(cityAnswers, Category.CITY);
+        HashMap<String, Double> resultsSoccers = calculateAccuracy(soccersAnswers, Category.SOCCERPLAYER);
+        HashMap<String, Double> resultsScientists = calculateAccuracy(scientistsAnswers, Category.SCIENTIST);
+        HashMap<String, Double> resultsDrugs = calculateAccuracy(drugsAnswers, Category.DRUG);
+        HashMap<String, Double> resultsSoftware = calculateAccuracy(softwareAnswers, Category.SOFTWARE);
+        HashMap<String, Double> resultsRivers = calculateAccuracy(riverAnswers, Category.RIVER);
+        //HashMap<String, Double> resultsCountries = calculateAccuracy(countryAnswers, Category.COUNTRY);
+
+        System.out.println("results city");
+        printMap(resultsCity);
+        System.out.println("results soccerplayer");
+        printMap(resultsSoccers);
+        System.out.println("results scientist");
+        printMap(resultsScientists);
+        System.out.println("results drug");
+        printMap(resultsDrugs);
+        System.out.println("results software");
+        printMap(resultsSoftware);
+        System.out.println("results rivers");
+        printMap(resultsRivers);
+        //System.out.println("results countries");
+        //printMap(resultsCountries);
+    }
+
+    private HashMap<String, Double> calculateAccuracy(ArrayList<String> stringAnswers, Category cat) {
+
+        HashMap<String, Double> accuracyMap = new HashMap<>();
+
+        int validateAnswerCounter = 0;
+        int validateSelectCounter = 0;
+        int validateCombinedCounter = 0;
+
+        for (int i = 0; i < stringAnswers.size(); i++) {
+            validateAnswerCounter = (SparqlController.validateAnswer(new Answer(stringAnswers.get(i), cat, stringAnswers.get(i).charAt(0), (long)(0.01))))
+                    ? validateAnswerCounter + 1 : validateAnswerCounter;
+            validateSelectCounter = (SparqlController.validateWithSelect(new Answer(stringAnswers.get(i), cat, stringAnswers.get(i).charAt(0), (long)(0.01))))
+                    ? validateSelectCounter + 1 : validateSelectCounter;
+            validateCombinedCounter = SparqlController.validateMultiple(new Answer(stringAnswers.get(i), cat, stringAnswers.get(i).charAt(0), (long)(0.01)))
+                    ? validateCombinedCounter + 1 : validateCombinedCounter;
+        }
+        accuracyMap.put("ask_query_approach", ((double)validateAnswerCounter / 10.0));
+        accuracyMap.put("select_query_approach", ((double)validateSelectCounter / 10.0));
+        accuracyMap.put("combined_approach", ((double)validateCombinedCounter / 10.0));
+
+        return accuracyMap;
+    }
+
+    private void printMap(HashMap<String, Double> map){
+        map.entrySet().forEach(entry->{
+            System.out.println("Evaluation Approach: " + entry.getKey() + " Accuracy: " + entry.getValue());
+        });
+    }
+
+    }
