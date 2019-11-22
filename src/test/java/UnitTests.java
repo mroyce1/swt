@@ -220,6 +220,12 @@ public class UnitTests {
         cityAnswers.add("Munich");
         cityAnswers.add("Rome");
         cityAnswers.add("Mannheim");
+        cityAnswers.add("Vienna");
+        cityAnswers.add("Marseille");
+        cityAnswers.add("Warsaw");
+        cityAnswers.add("Cologne");
+        cityAnswers.add("Tokyo");
+
 
         soccersAnswers.add("Kahn");
         soccersAnswers.add("Ribery");
@@ -231,6 +237,13 @@ public class UnitTests {
         soccersAnswers.add("Messi");
         soccersAnswers.add("Müller");
         soccersAnswers.add("Maradona");
+        soccersAnswers.add("Zidane");
+        soccersAnswers.add("Fabregas");
+        soccersAnswers.add("Adler");
+        soccersAnswers.add("Boateng");
+        soccersAnswers.add("Lewandowski");
+
+
 
         scientistsAnswers.add("Berners-Lee");
         scientistsAnswers.add("Bohr");
@@ -242,6 +255,12 @@ public class UnitTests {
         scientistsAnswers.add("Thompson");
         scientistsAnswers.add("Gauß");
         scientistsAnswers.add("Euler");
+        scientistsAnswers.add("Pythagoras");
+        scientistsAnswers.add("Heisenberg");
+        scientistsAnswers.add("Leibniz");
+        scientistsAnswers.add("Newton");
+        scientistsAnswers.add("Kepler");
+
 
         drugsAnswers.add("Aspirin");
         drugsAnswers.add("Ibuprofen");
@@ -253,6 +272,11 @@ public class UnitTests {
         drugsAnswers.add("Prozac");
         drugsAnswers.add("Voltaren");
         drugsAnswers.add("Diazepam");
+        drugsAnswers.add("Cetirizine");
+        drugsAnswers.add("Tebonin");
+        drugsAnswers.add("Diclofenac");
+        drugsAnswers.add("Paracetamol");
+        drugsAnswers.add("Tramadol");
 
 
         softwareAnswers.add("Excel");
@@ -265,6 +289,12 @@ public class UnitTests {
         softwareAnswers.add("Teradata");
         softwareAnswers.add("Jena" );
         softwareAnswers.add("HRworks" );
+        softwareAnswers.add("Numbers" );
+        softwareAnswers.add("Word" );
+        softwareAnswers.add("PyCharm" );
+        softwareAnswers.add("Eclipse" );
+        softwareAnswers.add("WhatsApp" );
+
 
         riverAnswers.add("Rhine");
         riverAnswers.add("Main");
@@ -276,6 +306,12 @@ public class UnitTests {
         riverAnswers.add("Seine");
         riverAnswers.add("Thames");
         riverAnswers.add("Nidda");
+        riverAnswers.add("Yangtze");
+        riverAnswers.add("Lena River");
+        riverAnswers.add("Yellow River");
+        riverAnswers.add("Donau");
+        riverAnswers.add("Wien");
+
 
 
         countryAnswers.add("Brazil");
@@ -288,7 +324,6 @@ public class UnitTests {
         countryAnswers.add("Hungary");
         countryAnswers.add("Italy");
         countryAnswers.add("Spain");
-
 
         HashMap<String, Double> resultsCity = calculateAccuracy(cityAnswers, Category.CITY);
         HashMap<String, Double> resultsSoccers = calculateAccuracy(soccersAnswers, Category.SOCCERPLAYER);
@@ -312,6 +347,14 @@ public class UnitTests {
         printMap(resultsRivers);
         //System.out.println("results countries");
         //printMap(resultsCountries);
+
+        double overallAccuracyAskQuery = (resultsCity.get("ask_query_approach") + resultsSoccers.get("ask_query_approach") + resultsScientists.get("ask_query_approach")
+                + resultsDrugs.get("ask_query_approach") + resultsSoftware.get("ask_query_approach") + resultsRivers.get("ask_query_approach")) / 5.0;
+        System.out.println(overallAccuracyAskQuery);
+
+        double overallAccuracySelect = (resultsCity.get("select_query_approach") + resultsSoccers.get("select_query_approach") + resultsScientists.get("select_query_approach")
+                + resultsDrugs.get("select_query_approach") + resultsSoftware.get("select_query_approach") + resultsRivers.get("select_query_approach")) / 5.0;
+        System.out.println(overallAccuracySelect);
     }
 
     private HashMap<String, Double> calculateAccuracy(ArrayList<String> stringAnswers, Category cat) {
@@ -320,19 +363,15 @@ public class UnitTests {
 
         int validateAnswerCounter = 0;
         int validateSelectCounter = 0;
-        int validateCombinedCounter = 0;
 
         for (int i = 0; i < stringAnswers.size(); i++) {
             validateAnswerCounter = (SparqlController.validateAnswer(new Answer(stringAnswers.get(i), cat, stringAnswers.get(i).charAt(0), (long)(0.01))))
                     ? validateAnswerCounter + 1 : validateAnswerCounter;
             validateSelectCounter = (SparqlController.validateWithSelect(new Answer(stringAnswers.get(i), cat, stringAnswers.get(i).charAt(0), (long)(0.01))))
                     ? validateSelectCounter + 1 : validateSelectCounter;
-            validateCombinedCounter = SparqlController.validateMultiple(new Answer(stringAnswers.get(i), cat, stringAnswers.get(i).charAt(0), (long)(0.01)))
-                    ? validateCombinedCounter + 1 : validateCombinedCounter;
         }
-        accuracyMap.put("ask_query_approach", ((double)validateAnswerCounter / 10.0));
-        accuracyMap.put("select_query_approach", ((double)validateSelectCounter / 10.0));
-        accuracyMap.put("combined_approach", ((double)validateCombinedCounter / 10.0));
+        accuracyMap.put("ask_query_approach", ((double)validateAnswerCounter / 15.0));
+        accuracyMap.put("select_query_approach", ((double)validateSelectCounter / 15.0));
 
         return accuracyMap;
     }
