@@ -20,7 +20,7 @@ public class Main {
 //        Difficulty difficulty = readDifficulty();
 //        int maxRounds = readMaxRounds();
         int maxRounds = 10;
-        Difficulty difficulty = Difficulty.MEDIUM;
+        Difficulty difficulty = Difficulty.HARD;
         List<Category> categories = new ArrayList<Category>();
         categories.add(Category.CITY);
         categories.add(Category.COUNTRY);

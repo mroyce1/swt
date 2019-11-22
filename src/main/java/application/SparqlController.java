@@ -13,6 +13,7 @@ import java.util.*;
 
 
 public class SparqlController {
+    private static boolean validateWithAskAndSelect = true;
 
 
     /*
@@ -51,7 +52,7 @@ public class SparqlController {
             if (s.contains("@en")) {
                 int end = s.indexOf("@") + 1;
 //            int end = s.indexOf("\"@en ");
-                s = s.substring(0, end-1);
+                s = s.substring(0, end - 1);
             }
 //            if(category == Category.RIVER){
 //                s = s.replaceAll(" River", "");
@@ -72,15 +73,21 @@ public class SparqlController {
             List<String> countries = queryWikidata(category, answerText.charAt(0));
             return countries.contains(answerText);
         }
+        boolean answerValidation = validateWithAsk(answer);
+        if (!answerValidation && validateWithAskAndSelect) {
+            return validateWithSelect(answer);
+        }
+        return answerValidation;
+    }
+
+    public static boolean validateWithAsk(Answer answer) {
+        Category category = answer.getCategory();
+        String answerText = answer.getAnswerText();
         String queryString = String.format(category.getValidateQuery(), answerText);
         String endpoint = category.getEndpoint();
         Query query = QueryFactory.create(queryString);
         QueryExecution qexec = QueryExecutionFactory.sparqlService(endpoint, query);
-        if (!qexec.execAsk()) {
-//            return validateMultiple(answer);
-            return validateWithSelect(answer);
-        }
-        return true;
+        return qexec.execAsk();
     }
 
     public static boolean validateWithSelect(Answer answer) {
@@ -99,34 +106,9 @@ public class SparqlController {
             retrieved.addAll(queryDBPedia(category, token));
         }
         for (String s : retrieved) {
+            //System.out.println(s);
             if (s.toLowerCase().contains(answerText.toLowerCase())) {
                 return true;
-            }
-        }
-        return false;
-    }
-
-    public static boolean validateMultiple(Answer answer) {
-        Category category = answer.getCategory();
-        String answerText = answer.getAnswerText();
-        String queryString = "";
-        String endpoint = category.getEndpoint();
-        Query query = null;
-        QueryExecution qexec = null;
-        for (String s : answerText.split(" ")) {
-            for (String suffix : category.getSuffixes()) {
-                queryString = String.format(category.getValidateQuery(), s);
-                query = QueryFactory.create(queryString);
-                qexec = QueryExecutionFactory.sparqlService(endpoint, query);
-                if (qexec.execAsk()) {
-                    return true;
-                }
-                queryString = String.format(category.getValidateQuery(), s + suffix);
-                query = QueryFactory.create(queryString);
-                qexec = QueryExecutionFactory.sparqlService(endpoint, query);
-                if (qexec.execAsk()) {
-                    return true;
-                }
             }
         }
         return false;
