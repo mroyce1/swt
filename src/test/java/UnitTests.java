@@ -348,30 +348,75 @@ public class UnitTests {
         //System.out.println("results countries");
         //printMap(resultsCountries);
 
-        double overallAccuracyAskQuery = (resultsCity.get("ask_query_approach") + resultsSoccers.get("ask_query_approach") + resultsScientists.get("ask_query_approach")
-                + resultsDrugs.get("ask_query_approach") + resultsSoftware.get("ask_query_approach") + resultsRivers.get("ask_query_approach")) / 5.0;
-        System.out.println(overallAccuracyAskQuery);
+
+        double overallAccuracyCombQuery = (resultsCity.get("combined_approach") + resultsSoccers.get("combined_approach") + resultsScientists.get("combined_approach")
+                + resultsDrugs.get("combined_approach") + resultsSoftware.get("combined_approach") + resultsRivers.get("combined_approach")) / 6.0;
+        System.out.println(overallAccuracyCombQuery);
 
         double overallAccuracySelect = (resultsCity.get("select_query_approach") + resultsSoccers.get("select_query_approach") + resultsScientists.get("select_query_approach")
-                + resultsDrugs.get("select_query_approach") + resultsSoftware.get("select_query_approach") + resultsRivers.get("select_query_approach")) / 5.0;
+                + resultsDrugs.get("select_query_approach") + resultsSoftware.get("select_query_approach") + resultsRivers.get("select_query_approach")) / 6.0;
         System.out.println(overallAccuracySelect);
+
+        double overallAccuracyAsk = (resultsCity.get("ask_approach") + resultsSoccers.get("ask_approach") + resultsScientists.get("ask_approach")
+                + resultsDrugs.get("ask_approach") + resultsSoftware.get("ask_approach") + resultsRivers.get("ask_approach")) / 6.0;
+        System.out.println(overallAccuracyAsk);
+
+        double overallDurationCombQuery = (resultsCity.get("combined_approach_DURATION") + resultsSoccers.get("combined_approach_DURATION") + resultsScientists.get("combined_approach_DURATION")
+                + resultsDrugs.get("combined_approach_DURATION") + resultsSoftware.get("combined_approach_DURATION") + resultsRivers.get("combined_approach_DURATION")) / 6.0;
+        System.out.println(overallDurationCombQuery);
+
+        double overallDurationSelect = (resultsCity.get("select_query_approach_DURATION") + resultsSoccers.get("select_query_approach_DURATION") + resultsScientists.get("select_query_approach_DURATION")
+                + resultsDrugs.get("select_query_approach_DURATION") + resultsSoftware.get("select_query_approach_DURATION") + resultsRivers.get("select_query_approach_DURATION")) / 6.0;
+        System.out.println(overallDurationSelect);
+
+        double overallDurationAsk = (resultsCity.get("ask_approach_DURATION") + resultsSoccers.get("ask_approach_DURATION") + resultsScientists.get("ask_approach_DURATION")
+                + resultsDrugs.get("ask_approach_DURATION") + resultsSoftware.get("ask_approach_DURATION") + resultsRivers.get("ask_approach_DURATION")) / 6.0;
+        System.out.println(overallDurationAsk);
+
     }
+
+
+
 
     private HashMap<String, Double> calculateAccuracy(ArrayList<String> stringAnswers, Category cat) {
 
         HashMap<String, Double> accuracyMap = new HashMap<>();
 
+        int validateWithAskCounter = 0;
         int validateAnswerCounter = 0;
         int validateSelectCounter = 0;
 
+
+        ArrayList<Duration> durationsCombApproach = new ArrayList<>();
+        ArrayList<Duration> durationsSelectApproach = new ArrayList<>();
+        ArrayList<Duration> durationsAskApproach = new ArrayList<>();
+        Instant start = Instant.now();
+        Instant end = Instant.now();
+
         for (int i = 0; i < stringAnswers.size(); i++) {
+            start = Instant.now();
             validateAnswerCounter = (SparqlController.validateAnswer(new Answer(stringAnswers.get(i), cat, stringAnswers.get(i).charAt(0), (long)(0.01))))
                     ? validateAnswerCounter + 1 : validateAnswerCounter;
+            end = Instant.now();
+            durationsCombApproach.add(Duration.between(start,end));
+            start = Instant.now();
             validateSelectCounter = (SparqlController.validateWithSelect(new Answer(stringAnswers.get(i), cat, stringAnswers.get(i).charAt(0), (long)(0.01))))
                     ? validateSelectCounter + 1 : validateSelectCounter;
+            end = Instant.now();
+            durationsSelectApproach.add(Duration.between(start,end));
+            start = Instant.now();
+            validateWithAskCounter = (SparqlController.validateWithAsk(new Answer(stringAnswers.get(i), cat, stringAnswers.get(i).charAt(0), (long)(0.01))))
+                    ? validateWithAskCounter + 1 : validateWithAskCounter;
+            end = Instant.now();
+            durationsAskApproach.add(Duration.between(start,end));
         }
-        accuracyMap.put("ask_query_approach", ((double)validateAnswerCounter / 15.0));
+
+        accuracyMap.put("combined_approach", ((double)validateAnswerCounter / 15.0));
         accuracyMap.put("select_query_approach", ((double)validateSelectCounter / 15.0));
+        accuracyMap.put("ask_approach", ((double)validateWithAskCounter / 15.0));
+        accuracyMap.put("combined_approach_DURATION", durationsCombApproach.stream().mapToDouble(Duration::toMillis).average().getAsDouble());
+        accuracyMap.put("select_query_approach_DURATION", durationsSelectApproach.stream().mapToDouble(Duration::toMillis).average().getAsDouble());
+        accuracyMap.put("ask_approach_DURATION", durationsAskApproach.stream().mapToDouble(Duration::toMillis).average().getAsDouble());
 
         return accuracyMap;
     }
