@@ -24,23 +24,26 @@ public class Main {
      */
 
     public static void main(String[] args){
-//        String playerName = readName();
-//        Difficulty difficulty = readDifficulty();
-//        int maxRounds = readMaxRounds();
-        int maxRounds = 10;
-        Difficulty difficulty = Difficulty.HARD;
-        List<Category> categories = new ArrayList<Category>();
-        categories.add(Category.CITY);
-        categories.add(Category.COUNTRY);
-        categories.add(Category.RIVER);
+        String playerName = readName();
+        Difficulty difficulty = readDifficulty();
+        List<Category> categories = readCategories();
+        int maxRounds = readMaxRounds();
+//        List<Category> categories = new ArrayList<Category>();
+//        int maxRounds = 10;
+//        Difficulty difficulty = Difficulty.HARD;
+//        categories.add(Category.CITY);
+//        categories.add(Category.COUNTRY);
+//        categories.add(Category.RIVER);
 //        categories.add(Category.SOFTWARE);
-//        categories.add(Category.ANIMAL);
-        categories.add(Category.DRUG);
+//        categories.add(Category.DRUG);
+//        categories.add(Category.SCIENTIST);
+//        categories.add(Category.SOCCERPLAYER);
+//        categories.add(Category.COMPANY);
 
 
         Player p1 = new Human("human", 0);
         Player p2 = new AI("bla AI", 0, difficulty);
-        Game g  = new Game(p1, p2, 10, difficulty, categories);
+        Game g  = new Game(p1, p2, maxRounds, difficulty, categories);
         Player winner = g.start();
         System.out.println("Winner is: " + winner);
     }

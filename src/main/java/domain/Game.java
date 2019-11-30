@@ -144,6 +144,7 @@ public class Game {
             } else if (!answer.isCorrect() && aiAnswers.get(i).getAnswerText() != null) {
                 p2Points += 10; //human has no correct answer -> AI receives points
             }
+            System.out.println("For " + answer.getCategory() + ":");
             System.out.println("You answered: " + humanAnswers.get(i));
             System.out.println("The AI answered: " + aiAnswers.get(i));
         }
