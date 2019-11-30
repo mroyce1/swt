@@ -6,15 +6,26 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Subclass of abstract class Player representing a human player
+ */
 public class Human extends Player {
+
+    /**
+     * Constructor of Human class
+     * @param name player's name
+     * @param points player's points
+     */
     public Human(String name, int points) {
         super(name, points, PlayerType.HUMAN);
     }
 
 
-
-    /*
-    Returns a list of answers for each category and starting with the respective character.
+    /**
+     * Returns a list of answers for each category and starting with the respective character.
+     * @param categories List of categories
+     * @param initialChar starting char
+     * @return List<Answer>
      */
     @Override
     public List<Answer> getListOfAnswers(List<Category> categories, char initialChar) {
@@ -26,8 +37,11 @@ public class Human extends Player {
         return answers;
     }
 
-        /*
-    Returns a single answer for each category and starting with the respective character.
+    /**
+     * Returns a single answer for each category and starting with the respective character.
+     * @param category Single category
+     * @param initialChar starting char
+     * @return Answer
      */
     @Override
     public Answer getAnswer(Category category, char initialChar) {
@@ -36,9 +50,11 @@ public class Human extends Player {
         return answer;
     }
 
-
-    /*
-    Read answer from command line.
+    /**
+     * Reads answer from command line.
+     * @param category Specified Category
+     * @param initialChar starting char
+     * @return Answer
      */
     private Answer readAnswer(Category category, char initialChar){
         BufferedReader bufR = new BufferedReader(new InputStreamReader(System.in));

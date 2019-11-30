@@ -1,8 +1,11 @@
 package application;
 
+/**
+ * Class containing static queries for retrieving resultsets from DBPedia and WikiData as well as the ASK queries for validation.
+ * Also contains the endpoints for the two knowledge graphs.
+ */
 public class Settings {
 
-    //DBPedia Queries
 
     public static final String citiesDBPedia = "PREFIX dbo: <http://dbpedia.org/ontology/>\n" +
             "PREFIX dbr: <http://dbpedia.org/resource/>\n" +

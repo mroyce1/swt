@@ -6,9 +6,17 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
+/**
+ * Enum that represents the various categories.
+ */
+
 public enum Category {
     COUNTRY, RIVER, CITY, ANIMAL, COMPANY, SOCCERPLAYER, SCIENTIST, DRUG, SOFTWARE;
 
+    /**
+     * Returns the SELECT query depending on the chosen category.
+     * @return String
+     */
     public String getListQuery() {
         switch (this) {
             case COUNTRY:
@@ -31,6 +39,10 @@ public enum Category {
         return Settings.riversDBPedia;
     }
 
+    /**
+     * Returns the validate (ASK) query depending on the chosen category.
+     * @return String
+     */
     public String getValidateQuery() {
         switch (this) {
             case COUNTRY:
@@ -142,6 +154,10 @@ public enum Category {
         return "riverName";
     }
 
+    /**
+     * Returns the endpoint (DBPedia or WikiData) depending on the chosen category
+     * @return String
+     */
     public String getEndpoint() {
         if (this == COUNTRY) {
             return Settings.wikiDataEndpoint;

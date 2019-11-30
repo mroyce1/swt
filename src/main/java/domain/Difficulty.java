@@ -1,8 +1,15 @@
 package domain;
 
-public enum Difficulty {
-    EASY(40), MEDIUM(30), HARD(20);
+/**
+ * Enum representing the three available difficulties
+ */
 
+public enum Difficulty {
+    EASY(25), MEDIUM(12), HARD(5);
+
+    /**
+     * Value representing the upper bound for a move time (25s, 12s or 5s) depending on the difficulty.
+     */
     private int val;
 
     Difficulty(int val) {
@@ -10,8 +17,9 @@ public enum Difficulty {
     }
 
 
-        /*
-    Returns time associated with the AI's difficulty
+    /**
+     * Returns the upper bound for the move time depending on the chosen difficulty.
+     * @return int
      */
     public int getMoveTimeUpperBound() {
         switch (this) {
@@ -24,6 +32,11 @@ public enum Difficulty {
         return 5;
     }
 
+    /**
+     * Returns Difficulty Enum from String input. Used for initial setup when reading the user's difficulty preference from the command line.
+     * @param s
+     * @return Difficulty
+     */
     public static Difficulty getDifficulty(String s) {
         switch (s) {
             case "EASY":

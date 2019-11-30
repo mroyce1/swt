@@ -11,18 +11,25 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.*;
 
+/**
+ * Class that handles communication via SPARQL and via GET-Requests (for WikiData).
+ * Used for retrieving possible answers and for validation.
+ *
+ */
 
 public class SparqlController {
     private static boolean validateWithAskAndSelect = true;
 
 
-    /*
-    gets an endpoint (DBPedia, WikiData...), the initial Char and the Category as input
-    1. Gets query string from Settings.java
-    2. Get endpoint for category
-    3. replaces placeholder in query string with initial char
-    4. retrieves results
-    5. etc.
+    /**
+      *Tets an endpoint (DBPedia, WikiData...), the initial Char and the Category as input
+     *1. Gets query string from Settings.java
+     *2. Get endpoint for category
+     *3. replaces placeholder in query string with initial char
+     *4. retrieves results
+     * @param category desired Category
+     * @param initialChar starting char for the result set
+     * @return List<String>
      */
 
     public static List<String> queryList(Category category, char initialChar) {
@@ -34,6 +41,13 @@ public class SparqlController {
         }
         return results;
     }
+
+    /**
+     *  Queries DBPedia for a certain category and an initial char
+     * @param category desired Category
+     * @param initialChar starting char for resultset
+     * @return List<String>
+     */
 
     public static List<String> queryDBPedia(Category category, String initialChar) {
         String queryString = String.format(category.getListQuery(), "^" + initialChar);
@@ -62,6 +76,13 @@ public class SparqlController {
         return results;
     }
 
+    /**
+     * Validation method for answers. First checks whether the answer's text is empty or equal to null.
+     * Validates with ASK or with ASK and SELECT depending on whether the flag validateWithAskAndSelect has been set.
+     * @param answer Answer instance
+     * @return boolean whether the answer is correct or not
+     */
+
     public static boolean validateAnswer(Answer answer) {
         Category category = answer.getCategory();
         String answerText = answer.getAnswerText();
@@ -80,6 +101,12 @@ public class SparqlController {
         return answerValidation;
     }
 
+    /**
+     * Validates a given answer with the use of an ASK query.
+     * @param answer Answer instance
+     * @return boolean whether the answer is correct or not.
+     */
+
     public static boolean validateWithAsk(Answer answer) {
         Category category = answer.getCategory();
         String answerText = answer.getAnswerText();
@@ -89,6 +116,12 @@ public class SparqlController {
         QueryExecution qexec = QueryExecutionFactory.sparqlService(endpoint, query);
         return qexec.execAsk();
     }
+
+    /**
+     * Validates a given answer with a select query.
+     * @param answer Answer instance
+     * @return boolean whether the answer is correct or not.
+     */
 
     public static boolean validateWithSelect(Answer answer) {
         Category category = answer.getCategory();
@@ -114,6 +147,12 @@ public class SparqlController {
         return false;
     }
 
+    /**
+     *
+     * @param category Desired Category (Only COUNTRY in current implementation)
+     * @param initialChar starting char for resultset
+     * @return List<String>
+     */
 
     public static List<String> queryWikidata(Category category, char initialChar) {
         String urlString = Settings.wikiDataEndpoint + category.getListQuery();
@@ -162,7 +201,6 @@ public class SparqlController {
         }
         return countries;
     }
-
 
     public static void main(String[] args) {
         queryList(Category.CITY, 'A');

@@ -1,8 +1,6 @@
 package application;
 
 import domain.*;
-import org.apache.commons.lang3.builder.Diff;
-import ui.InitUI;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -11,11 +9,21 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+
+/**
+ * Main class that is called when the application starts.
+ *
+ */
+
 public class Main {
 
-    public static void main(String[] args){
-//        javafx.application.Application.launch(InitUI.class);
+    /**
+     * main method that is called when the application starts.
+     * Reads necessary input from user and starts a game.
+     * @param args not needed
+     */
 
+    public static void main(String[] args){
 //        String playerName = readName();
 //        Difficulty difficulty = readDifficulty();
 //        int maxRounds = readMaxRounds();
@@ -37,6 +45,11 @@ public class Main {
         System.out.println("Winner is: " + winner);
     }
 
+    /**
+     * Reads the player's name from the command line and returns it.
+     * @return String
+     */
+
     private static String readName(){
         BufferedReader bufR = new BufferedReader(new InputStreamReader(System.in));
         String name = null;
@@ -52,6 +65,11 @@ public class Main {
         return name;
     }
 
+    /**
+     * Reads the desired difficulty from the command line and returns it.
+     * @return Difficulty
+     */
+
     private static Difficulty readDifficulty(){
         BufferedReader bufR = new BufferedReader(new InputStreamReader(System.in));
         String difficulty = "";
@@ -66,6 +84,11 @@ public class Main {
         }
         return Difficulty.getDifficulty(difficulty.toUpperCase());
     }
+
+    /**
+     * Reads the desired categories from the command line and returns them as a list.
+     * @return List<Category>
+     */
 
     private static List<Category> readCategories(){
         BufferedReader bufR = new BufferedReader(new InputStreamReader(System.in));
@@ -95,6 +118,11 @@ public class Main {
         return returnList;
     }
 
+
+    /**
+     * Reads the desired number of maximum rounds from the command line and returns the value.
+     * @return int
+     */
 
     private static int readMaxRounds(){
         BufferedReader bufR = new BufferedReader(new InputStreamReader(System.in));

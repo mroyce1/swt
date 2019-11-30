@@ -53,6 +53,7 @@ public class AI extends Player {
                 if (randomIntForAiFailure >= thresholdFailure) {
                     answers.add(new Answer(this.generateRandomAnswer(), c, initialChar, this.getRandomMoveTime()));
                 }else {
+//                    answers.add(new Answer(results.get(randomInt), c, initialChar, this.getRandomMoveTime(), true));
                     answers.add(new Answer(results.get(randomInt), c, initialChar, this.getRandomMoveTime()));
                 }
             }
