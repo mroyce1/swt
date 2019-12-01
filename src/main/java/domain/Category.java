@@ -11,7 +11,7 @@ import java.util.Set;
  */
 
 public enum Category {
-    COUNTRY, RIVER, CITY, ANIMAL, COMPANY, SOCCERPLAYER, SCIENTIST, DRUG, SOFTWARE;
+    COUNTRY, RIVER, CITY, SOCCERPLAYER, SCIENTIST, DRUG, SOFTWARE;
 
     /**
      * Returns the SELECT query depending on the chosen category.
@@ -23,10 +23,6 @@ public enum Category {
                 return Settings.countriesWikiData;
             case CITY:
                 return Settings.citiesDBPedia;
-            case ANIMAL:
-                return Settings.animalsDBPedia;
-            case COMPANY:
-                return Settings.companiesDBPedia;
             case SOCCERPLAYER:
                 return Settings.soccerplayersDBPedia;
             case SCIENTIST:
@@ -49,10 +45,6 @@ public enum Category {
                 return Settings.citiesDBPedia;
             case CITY:
                 return Settings.doesCityExistQuery;
-            case ANIMAL:
-                return Settings.doesAnimalExistQuery;
-            case COMPANY:
-                return Settings.doesCompanyExistQuery;
             case SOCCERPLAYER:
                 return Settings.doesSoccerPlayerExistQuery;
             case SCIENTIST:
@@ -80,20 +72,6 @@ public enum Category {
                     add(" city");
                     add(" (City)");
                     add(" (city)");
-                }};
-            case ANIMAL:
-                return new ArrayList<String>() {{
-                    add(" Animal");
-                    add(" animal");
-                    add(" (Animal)");
-                    add(" (animal)");
-                }};
-            case COMPANY:
-                return new ArrayList<String>() {{
-                    add(" Company");
-                    add(" company");
-                    add(" (Company)");
-                    add(" (company)");
                 }};
             case SOCCERPLAYER:
                 return new ArrayList<String>() {{
@@ -138,10 +116,6 @@ public enum Category {
                 return "country";
             case CITY:
                 return "cityName";
-            case ANIMAL:
-                return "animalName";
-            case COMPANY:
-                return "companyName";
             case SOCCERPLAYER:
                 return "soccerPlayerName";
             case SCIENTIST:

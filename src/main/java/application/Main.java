@@ -105,7 +105,7 @@ public class Main {
         }
         try{
             while(categories == null) {
-                System.out.println("Please select the categories' numbers separated by comma:");
+                System.out.println("Please select the categories' numbers separated by comma: (e.g. 0,2,4)");
                 System.out.println(catString);
                 categories = bufR.readLine();
             }
